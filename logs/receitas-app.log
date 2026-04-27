@@ -1,0 +1,42 @@
+2026-04-27T16:30:48.876-03:00  INFO 57860 --- [registroReceitas] [main] c.a.r.RegistroReceitasApplication        : Starting RegistroReceitasApplication using Java 25 with PID 57860 (C:\Users\Arthu\Downloads\Documentos\Disciplinas\Gerencia_De_Configuracao_Sofware\Task_2_Receitas\registroReceitas\registroReceitas\target\classes started by Arthu in C:\Users\Arthu\Downloads\Documentos\Disciplinas\Gerencia_De_Configuracao_Sofware\Task_2_Receitas\registroReceitas\registroReceitas)
+2026-04-27T16:30:48.878-03:00  INFO 57860 --- [registroReceitas] [main] c.a.r.RegistroReceitasApplication        : No active profile set, falling back to 1 default profile: "default"
+2026-04-27T16:30:49.374-03:00  INFO 57860 --- [registroReceitas] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-27T16:30:49.412-03:00  INFO 57860 --- [registroReceitas] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 31 ms. Found 2 JPA repository interfaces.
+2026-04-27T16:30:49.758-03:00  INFO 57860 --- [registroReceitas] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 80 (http)
+2026-04-27T16:30:49.767-03:00  INFO 57860 --- [registroReceitas] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-04-27T16:30:49.767-03:00  INFO 57860 --- [registroReceitas] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.20]
+2026-04-27T16:30:49.804-03:00  INFO 57860 --- [registroReceitas] [main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 883 ms
+2026-04-27T16:30:49.884-03:00  INFO 57860 --- [registroReceitas] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-04-27T16:30:49.996-03:00  INFO 57860 --- [registroReceitas] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@149aa7b2
+2026-04-27T16:30:49.997-03:00  INFO 57860 --- [registroReceitas] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-04-27T16:30:50.021-03:00  INFO 57860 --- [registroReceitas] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-04-27T16:30:50.069-03:00  INFO 57860 --- [registroReceitas] [main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.7.Final
+2026-04-27T16:30:50.436-03:00  INFO 57860 --- [registroReceitas] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-27T16:30:50.489-03:00  WARN 57860 --- [registroReceitas] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-04-27T16:30:50.505-03:00  INFO 57860 --- [registroReceitas] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/registro_receitas_db]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 16.1
+	Default catalog/schema: registro_receitas_db/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-04-27T16:30:51.165-03:00  INFO 57860 --- [registroReceitas] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-04-27T16:30:51.171-03:00  INFO 57860 --- [registroReceitas] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-27T16:30:51.218-03:00  INFO 57860 --- [registroReceitas] [main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-04-27T16:30:51.468-03:00  WARN 57860 --- [registroReceitas] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-04-27T16:30:51.604-03:00  INFO 57860 --- [registroReceitas] [main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-04-27T16:30:51.826-03:00  INFO 57860 --- [registroReceitas] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 80 (http) with context path '/'
+2026-04-27T16:30:51.830-03:00  INFO 57860 --- [registroReceitas] [main] c.a.r.RegistroReceitasApplication        : Started RegistroReceitasApplication in 3.282 seconds (process running for 3.676)
+2026-04-27T16:30:56.664-03:00  INFO 57860 --- [registroReceitas] [http-nio-80-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-04-27T16:30:56.664-03:00  INFO 57860 --- [registroReceitas] [http-nio-80-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-04-27T16:30:56.666-03:00  INFO 57860 --- [registroReceitas] [http-nio-80-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2026-04-27T16:32:22.043-03:00  INFO 57860 --- [registroReceitas] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-04-27T16:32:22.046-03:00  INFO 57860 --- [registroReceitas] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-04-27T16:32:22.050-03:00  INFO 57860 --- [registroReceitas] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-04-27T16:32:22.051-03:00  INFO 57860 --- [registroReceitas] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-04-27T16:32:22.053-03:00  INFO 57860 --- [registroReceitas] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

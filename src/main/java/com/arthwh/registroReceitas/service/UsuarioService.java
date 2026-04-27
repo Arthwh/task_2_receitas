@@ -18,12 +18,15 @@ import java.util.UUID;
 
 @Service
 public class UsuarioService {
-    @Autowired
-    private UsuarioRepository usuarioRepository;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-    @Autowired
-    private TokenCache tokenCache;
+    private final UsuarioRepository usuarioRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final TokenCache tokenCache;
+
+    public UsuarioService(UsuarioRepository usuarioRepository,  PasswordEncoder passwordEncoder, TokenCache tokenCache) {
+        this.usuarioRepository = usuarioRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.tokenCache = tokenCache;
+    }
 
     public String login(LoginDTO dto){
         Usuario usuario = usuarioRepository.getReferenceByLogin(dto.login());

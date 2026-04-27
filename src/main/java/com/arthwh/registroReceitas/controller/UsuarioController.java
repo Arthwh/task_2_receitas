@@ -1,6 +1,5 @@
 package com.arthwh.registroReceitas.controller;
 
-import com.arthwh.registroReceitas.dto.UsuarioCreateDTO;
 import com.arthwh.registroReceitas.dto.UsuarioUpdateDTO;
 import com.arthwh.registroReceitas.model.Usuario;
 import com.arthwh.registroReceitas.service.UsuarioService;
@@ -66,6 +65,6 @@ public class UsuarioController {
         if (usuario != null){
             return ResponseEntity.status(HttpStatus.OK).body(usuario);
         }
-        return null;
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
     }
 }
