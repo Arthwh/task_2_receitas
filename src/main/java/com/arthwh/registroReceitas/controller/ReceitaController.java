@@ -14,8 +14,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/receitas")
 public class ReceitaController {
-    @Autowired
-    private ReceitaService receitaService;
+    private final ReceitaService receitaService;
+
+    public ReceitaController(ReceitaService receitaService) {
+        this.receitaService = receitaService;
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Receita> getReceitaById(@PathVariable int id){

@@ -1,6 +1,8 @@
 package com.arthwh.registroReceitas.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.JdbcType;
 import org.hibernate.dialect.type.PostgreSQLEnumJdbcType;
 import org.springframework.security.core.GrantedAuthority;
@@ -8,6 +10,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "usuario")
 public class Usuario{
@@ -29,44 +33,4 @@ public class Usuario{
     @Column(name = "situacao",  nullable = false, columnDefinition = "status_usuario")
     @JdbcType(PostgreSQLEnumJdbcType.class)
     private SituacaoUsuarioEnum situacao;
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    public SituacaoUsuarioEnum getSituacao() {
-        return situacao;
-    }
-
-    public void setSituacao(SituacaoUsuarioEnum situacao) {
-        this.situacao = situacao;
-    }
 }

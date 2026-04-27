@@ -33,7 +33,7 @@ public class SecurityFilter extends OncePerRequestFilter {
             var login = tokenCache.getLoginPorToken(token);
             System.out.println("LOGIN ENCONTRADO NO CACHE: " + login);
             if (login != null) {
-                var usuario = usuarioRepository.getReferenceByLogin(login);
+                var usuario = usuarioRepository.findByLogin(login);
 
                 if (usuario != null) {
                     var authorities = java.util.List.of(new SimpleGrantedAuthority("ROLE_USER"));

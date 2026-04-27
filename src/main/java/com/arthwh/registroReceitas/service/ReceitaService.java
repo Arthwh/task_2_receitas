@@ -4,14 +4,16 @@ import com.arthwh.registroReceitas.dto.ReceitaCreateDTO;
 import com.arthwh.registroReceitas.dto.ReceitaUpdateDTO;
 import com.arthwh.registroReceitas.event.ReceitaAtualizadaEvent;
 import com.arthwh.registroReceitas.event.ReceitaCriadaEvent;
+import com.arthwh.registroReceitas.exception.ReceitaNotFoundException;
 import com.arthwh.registroReceitas.model.Receita;
 import com.arthwh.registroReceitas.repository.ReceitaRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
+@Slf4j
 @Service
 public class ReceitaService {
     private final ReceitaRepository receitaRepository;
@@ -23,7 +25,8 @@ public class ReceitaService {
     }
 
     public Receita getReceitaById(int id){
-        return receitaRepository.getReferenceById(id);
+        return receitaRepository.findById(id)
+                .orElseThrow(ReceitaNotFoundException::new);
     }
 
     public List<Receita> getReceitas(){
@@ -40,6 +43,9 @@ public class ReceitaService {
 
         Receita novaReceita = receitaRepository.save(receita);
 
+        //Adiciona o log
+        log.info("Receita salva com sucesso. ID: {}", novaReceita.getId());
+
         //Publica o evento para ser processado
         publisher.publishEvent(new ReceitaCriadaEvent(novaReceita.getId(), novaReceita.getNome()));
 
@@ -47,16 +53,16 @@ public class ReceitaService {
     }
 
     public Receita updateReceita(ReceitaUpdateDTO receitaDto){
-        Receita receita = receitaRepository.getReferenceById(receitaDto.id());
-
-        if (receita == null){
-            throw new NoSuchElementException("Receita não encontrada!");
-        }
+        Receita receita = receitaRepository.findById(receitaDto.id())
+                .orElseThrow(ReceitaNotFoundException::new);
 
         receita.setDescricao(receitaDto.descricao());
         receita.setCusto(receitaDto.custo());
 
         Receita receitaAtualizada = receitaRepository.save(receita);
+
+        //Adiciona o log
+        log.info("Receita atualizada com sucesso. ID: {}", receitaAtualizada.getId());
 
         //Publica o evento para ser processado
         publisher.publishEvent(new ReceitaAtualizadaEvent(receitaAtualizada.getId(), receitaAtualizada.getNome()));
@@ -65,10 +71,8 @@ public class ReceitaService {
     }
 
     public Receita deleteReceita(int id){
-        Receita receita =  receitaRepository.getReferenceById(id);
-        if (receita == null){
-            return null;
-        }
+        Receita receita = receitaRepository.findById(id)
+                .orElseThrow(ReceitaNotFoundException::new);
 
         receitaRepository.deleteById(id);
 

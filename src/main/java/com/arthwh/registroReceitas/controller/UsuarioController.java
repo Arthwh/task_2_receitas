@@ -14,8 +14,11 @@ import java.util.List;
 @Controller
 @RequestMapping("/usuarios")
 public class UsuarioController {
-    @Autowired
-    private UsuarioService usuarioService;
+    private final UsuarioService usuarioService;
+
+    public UsuarioController(UsuarioService usuarioService) {
+        this.usuarioService = usuarioService;
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Usuario> getUsuarioById(@PathVariable int id){

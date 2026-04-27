@@ -1,5 +1,6 @@
 package com.arthwh.registroReceitas.notification;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@Slf4j
 @Service
 public class EmailService implements INotificador {
     private final JavaMailSender emailSender;
@@ -24,7 +26,7 @@ public class EmailService implements INotificador {
 
     public void enviar(String destinatario, String assunto, String corpoMensagem) {
         if (!isValidEmail(destinatario)) {
-            System.out.println("Email " + destinatario + " inválido!");
+            log.info("Email {} inválido!", destinatario);
             return;
         }
 
@@ -36,7 +38,7 @@ public class EmailService implements INotificador {
             mensagem.setText(corpoMensagem);
             emailSender.send(mensagem);
         } catch (MailException e) {
-            System.out.println("Erro ao enviar email: " + e.getMessage());
+            log.error("Erro ao enviar e-mail!", e);
         }
     }
 
