@@ -1,10 +1,9 @@
 package com.arthwh.registroReceitas.controller;
 
-import com.arthwh.registroReceitas.dto.ReceitaCreateDTO;
+import com.arthwh.registroReceitas.dto.ReceitaRegisterDTO;
 import com.arthwh.registroReceitas.dto.ReceitaUpdateDTO;
 import com.arthwh.registroReceitas.model.Receita;
 import com.arthwh.registroReceitas.service.ReceitaService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -40,7 +39,7 @@ public class ReceitaController {
     }
 
     @PostMapping
-    public ResponseEntity<Receita> createReceita(@RequestBody ReceitaCreateDTO receitaDto){
+    public ResponseEntity<Receita> createReceita(@RequestBody ReceitaRegisterDTO receitaDto){
         if (receitaDto == null){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }

@@ -1,6 +1,6 @@
 package com.arthwh.registroReceitas.service;
 
-import com.arthwh.registroReceitas.dto.ReceitaCreateDTO;
+import com.arthwh.registroReceitas.dto.ReceitaRegisterDTO;
 import com.arthwh.registroReceitas.dto.ReceitaUpdateDTO;
 import com.arthwh.registroReceitas.event.ReceitaAtualizadaEvent;
 import com.arthwh.registroReceitas.event.ReceitaCriadaEvent;
@@ -33,7 +33,7 @@ public class ReceitaService {
         return  receitaRepository.findAll();
     }
 
-    public Receita createReceita(ReceitaCreateDTO receitaDto){
+    public Receita createReceita(ReceitaRegisterDTO receitaDto){
         Receita receita = new Receita();
 
         receita.setNome(receitaDto.nome());

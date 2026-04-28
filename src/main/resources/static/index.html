@@ -139,7 +139,7 @@
             situacao: "ATIVO"
         };
 
-        const url = id ? `${API_BASE}/usuarios` : `${API_BASE}/auth/create`;
+        const url = id ? `${API_BASE}/usuarios` : `${API_BASE}/auth/signup`;
         const method = id ? "PUT" : "POST";
         const token = localStorage.getItem("token");
 

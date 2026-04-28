@@ -1,19 +1,19 @@
-2026-04-27T16:30:48.876-03:00  INFO 57860 --- [registroReceitas] [main] c.a.r.RegistroReceitasApplication        : Starting RegistroReceitasApplication using Java 25 with PID 57860 (C:\Users\Arthu\Downloads\Documentos\Disciplinas\Gerencia_De_Configuracao_Sofware\Task_2_Receitas\registroReceitas\registroReceitas\target\classes started by Arthu in C:\Users\Arthu\Downloads\Documentos\Disciplinas\Gerencia_De_Configuracao_Sofware\Task_2_Receitas\registroReceitas\registroReceitas)
-2026-04-27T16:30:48.878-03:00  INFO 57860 --- [registroReceitas] [main] c.a.r.RegistroReceitasApplication        : No active profile set, falling back to 1 default profile: "default"
-2026-04-27T16:30:49.374-03:00  INFO 57860 --- [registroReceitas] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-04-27T16:30:49.412-03:00  INFO 57860 --- [registroReceitas] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 31 ms. Found 2 JPA repository interfaces.
-2026-04-27T16:30:49.758-03:00  INFO 57860 --- [registroReceitas] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 80 (http)
-2026-04-27T16:30:49.767-03:00  INFO 57860 --- [registroReceitas] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2026-04-27T16:30:49.767-03:00  INFO 57860 --- [registroReceitas] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.20]
-2026-04-27T16:30:49.804-03:00  INFO 57860 --- [registroReceitas] [main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 883 ms
-2026-04-27T16:30:49.884-03:00  INFO 57860 --- [registroReceitas] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2026-04-27T16:30:49.996-03:00  INFO 57860 --- [registroReceitas] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@149aa7b2
-2026-04-27T16:30:49.997-03:00  INFO 57860 --- [registroReceitas] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2026-04-27T16:30:50.021-03:00  INFO 57860 --- [registroReceitas] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
-2026-04-27T16:30:50.069-03:00  INFO 57860 --- [registroReceitas] [main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.7.Final
-2026-04-27T16:30:50.436-03:00  INFO 57860 --- [registroReceitas] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2026-04-27T16:30:50.489-03:00  WARN 57860 --- [registroReceitas] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2026-04-27T16:30:50.505-03:00  INFO 57860 --- [registroReceitas] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+2026-04-28T09:55:49.570-03:00  INFO 9436 --- [registroReceitas] [main] c.a.r.RegistroReceitasApplication        : Starting RegistroReceitasApplication using Java 25 with PID 9436 (C:\Users\Arthu\Downloads\Documentos\Disciplinas\Gerencia_De_Configuracao_Sofware\Task_2_Receitas\registroReceitas\registroReceitas\target\classes started by Arthu in C:\Users\Arthu\Downloads\Documentos\Disciplinas\Gerencia_De_Configuracao_Sofware\Task_2_Receitas\registroReceitas\registroReceitas)
+2026-04-28T09:55:49.574-03:00  INFO 9436 --- [registroReceitas] [main] c.a.r.RegistroReceitasApplication        : No active profile set, falling back to 1 default profile: "default"
+2026-04-28T09:55:50.132-03:00  INFO 9436 --- [registroReceitas] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-28T09:55:50.179-03:00  INFO 9436 --- [registroReceitas] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 38 ms. Found 2 JPA repository interfaces.
+2026-04-28T09:55:50.550-03:00  INFO 9436 --- [registroReceitas] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 80 (http)
+2026-04-28T09:55:50.559-03:00  INFO 9436 --- [registroReceitas] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-04-28T09:55:50.559-03:00  INFO 9436 --- [registroReceitas] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.20]
+2026-04-28T09:55:50.601-03:00  INFO 9436 --- [registroReceitas] [main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 986 ms
+2026-04-28T09:55:50.686-03:00  INFO 9436 --- [registroReceitas] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-04-28T09:55:50.854-03:00  INFO 9436 --- [registroReceitas] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@718989fa
+2026-04-28T09:55:50.855-03:00  INFO 9436 --- [registroReceitas] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-04-28T09:55:50.881-03:00  INFO 9436 --- [registroReceitas] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-04-28T09:55:50.929-03:00  INFO 9436 --- [registroReceitas] [main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.7.Final
+2026-04-28T09:55:51.312-03:00  INFO 9436 --- [registroReceitas] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-28T09:55:51.377-03:00  WARN 9436 --- [registroReceitas] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-04-28T09:55:51.398-03:00  INFO 9436 --- [registroReceitas] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
 	Database JDBC URL [jdbc:postgresql://localhost:5432/registro_receitas_db]
 	Database driver: PostgreSQL JDBC Driver
 	Database dialect: PostgreSQLDialect
@@ -25,37 +25,40 @@
 	Pool: DataSourceConnectionProvider
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2026-04-27T16:30:51.165-03:00  INFO 57860 --- [registroReceitas] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2026-04-27T16:30:51.171-03:00  INFO 57860 --- [registroReceitas] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2026-04-27T16:30:51.218-03:00  INFO 57860 --- [registroReceitas] [main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
-2026-04-27T16:30:51.468-03:00  WARN 57860 --- [registroReceitas] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2026-04-27T16:30:51.604-03:00  INFO 57860 --- [registroReceitas] [main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
-2026-04-27T16:30:51.826-03:00  INFO 57860 --- [registroReceitas] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 80 (http) with context path '/'
-2026-04-27T16:30:51.830-03:00  INFO 57860 --- [registroReceitas] [main] c.a.r.RegistroReceitasApplication        : Started RegistroReceitasApplication in 3.282 seconds (process running for 3.676)
-2026-04-27T16:30:56.664-03:00  INFO 57860 --- [registroReceitas] [http-nio-80-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-04-27T16:30:56.664-03:00  INFO 57860 --- [registroReceitas] [http-nio-80-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2026-04-27T16:30:56.666-03:00  INFO 57860 --- [registroReceitas] [http-nio-80-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
-2026-04-27T16:32:22.043-03:00  INFO 57860 --- [registroReceitas] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
-2026-04-27T16:32:22.046-03:00  INFO 57860 --- [registroReceitas] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
-2026-04-27T16:32:22.050-03:00  INFO 57860 --- [registroReceitas] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2026-04-27T16:32:22.051-03:00  INFO 57860 --- [registroReceitas] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2026-04-27T16:32:22.053-03:00  INFO 57860 --- [registroReceitas] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2026-04-27T17:07:58.345-03:00  INFO 26016 --- [registroReceitas] [main] c.a.r.RegistroReceitasApplication        : Starting RegistroReceitasApplication using Java 25 with PID 26016 (C:\Users\Arthu\Downloads\Documentos\Disciplinas\Gerencia_De_Configuracao_Sofware\Task_2_Receitas\registroReceitas\registroReceitas\target\classes started by Arthu in C:\Users\Arthu\Downloads\Documentos\Disciplinas\Gerencia_De_Configuracao_Sofware\Task_2_Receitas\registroReceitas\registroReceitas)
-2026-04-27T17:07:58.346-03:00  INFO 26016 --- [registroReceitas] [main] c.a.r.RegistroReceitasApplication        : No active profile set, falling back to 1 default profile: "default"
-2026-04-27T17:07:58.804-03:00  INFO 26016 --- [registroReceitas] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-04-27T17:07:58.846-03:00  INFO 26016 --- [registroReceitas] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 36 ms. Found 2 JPA repository interfaces.
-2026-04-27T17:07:59.149-03:00  INFO 26016 --- [registroReceitas] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 80 (http)
-2026-04-27T17:07:59.156-03:00  INFO 26016 --- [registroReceitas] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2026-04-27T17:07:59.157-03:00  INFO 26016 --- [registroReceitas] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.20]
-2026-04-27T17:07:59.190-03:00  INFO 26016 --- [registroReceitas] [main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 811 ms
-2026-04-27T17:07:59.258-03:00  INFO 26016 --- [registroReceitas] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2026-04-27T17:07:59.363-03:00  INFO 26016 --- [registroReceitas] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@5f5297e3
-2026-04-27T17:07:59.364-03:00  INFO 26016 --- [registroReceitas] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2026-04-27T17:07:59.389-03:00  INFO 26016 --- [registroReceitas] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
-2026-04-27T17:07:59.419-03:00  INFO 26016 --- [registroReceitas] [main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.7.Final
-2026-04-27T17:07:59.713-03:00  INFO 26016 --- [registroReceitas] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2026-04-27T17:07:59.754-03:00  WARN 26016 --- [registroReceitas] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2026-04-27T17:07:59.768-03:00  INFO 26016 --- [registroReceitas] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+2026-04-28T09:55:52.229-03:00  INFO 9436 --- [registroReceitas] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-04-28T09:55:52.236-03:00  INFO 9436 --- [registroReceitas] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-28T09:55:52.284-03:00  INFO 9436 --- [registroReceitas] [main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-04-28T09:55:52.417-03:00  WARN 9436 --- [registroReceitas] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-04-28T09:55:52.573-03:00  INFO 9436 --- [registroReceitas] [main] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2026-04-28T09:55:52.574-03:00  WARN 9436 --- [registroReceitas] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2026-04-28T09:55:52.761-03:00  INFO 9436 --- [registroReceitas] [main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-04-28T09:55:52.937-03:00  INFO 9436 --- [registroReceitas] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 80 (http) with context path '/'
+2026-04-28T09:55:52.941-03:00  INFO 9436 --- [registroReceitas] [main] c.a.r.RegistroReceitasApplication        : Started RegistroReceitasApplication in 3.707 seconds (process running for 4.188)
+2026-04-28T09:56:52.888-03:00  INFO 9436 --- [registroReceitas] [http-nio-80-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-04-28T09:56:52.888-03:00  INFO 9436 --- [registroReceitas] [http-nio-80-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-04-28T09:56:52.889-03:00  INFO 9436 --- [registroReceitas] [http-nio-80-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-04-28T09:56:53.102-03:00  INFO 9436 --- [registroReceitas] [http-nio-80-exec-1] c.a.r.service.AutenticacaoService        : Usuário arthur.alonso@teste.com criado com sucesso. ID: 5
+2026-04-28T10:09:15.601-03:00  INFO 9436 --- [registroReceitas] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-04-28T10:09:15.604-03:00  INFO 9436 --- [registroReceitas] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-04-28T10:09:15.608-03:00  INFO 9436 --- [registroReceitas] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-04-28T10:09:15.610-03:00  INFO 9436 --- [registroReceitas] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-04-28T10:09:15.611-03:00  INFO 9436 --- [registroReceitas] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-04-28T10:09:18.643-03:00  INFO 49356 --- [registroReceitas] [main] c.a.r.RegistroReceitasApplication        : Starting RegistroReceitasApplication using Java 25 with PID 49356 (C:\Users\Arthu\Downloads\Documentos\Disciplinas\Gerencia_De_Configuracao_Sofware\Task_2_Receitas\registroReceitas\registroReceitas\target\classes started by Arthu in C:\Users\Arthu\Downloads\Documentos\Disciplinas\Gerencia_De_Configuracao_Sofware\Task_2_Receitas\registroReceitas\registroReceitas)
+2026-04-28T10:09:18.645-03:00  INFO 49356 --- [registroReceitas] [main] c.a.r.RegistroReceitasApplication        : No active profile set, falling back to 1 default profile: "default"
+2026-04-28T10:09:19.093-03:00  INFO 49356 --- [registroReceitas] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-28T10:09:19.130-03:00  INFO 49356 --- [registroReceitas] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 32 ms. Found 2 JPA repository interfaces.
+2026-04-28T10:09:19.438-03:00  INFO 49356 --- [registroReceitas] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 80 (http)
+2026-04-28T10:09:19.445-03:00  INFO 49356 --- [registroReceitas] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-04-28T10:09:19.445-03:00  INFO 49356 --- [registroReceitas] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.20]
+2026-04-28T10:09:19.479-03:00  INFO 49356 --- [registroReceitas] [main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 796 ms
+2026-04-28T10:09:19.558-03:00  INFO 49356 --- [registroReceitas] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-04-28T10:09:19.654-03:00  INFO 49356 --- [registroReceitas] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@71789580
+2026-04-28T10:09:19.655-03:00  INFO 49356 --- [registroReceitas] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-04-28T10:09:19.677-03:00  INFO 49356 --- [registroReceitas] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-04-28T10:09:19.708-03:00  INFO 49356 --- [registroReceitas] [main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.7.Final
+2026-04-28T10:09:19.993-03:00  INFO 49356 --- [registroReceitas] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-28T10:09:20.031-03:00  WARN 49356 --- [registroReceitas] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-04-28T10:09:20.046-03:00  INFO 49356 --- [registroReceitas] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
 	Database JDBC URL [jdbc:postgresql://localhost:5432/registro_receitas_db]
 	Database driver: PostgreSQL JDBC Driver
 	Database dialect: PostgreSQLDialect
@@ -67,23 +70,20 @@
 	Pool: DataSourceConnectionProvider
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2026-04-27T17:08:00.293-03:00  INFO 26016 --- [registroReceitas] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2026-04-27T17:08:00.299-03:00  INFO 26016 --- [registroReceitas] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2026-04-27T17:08:00.341-03:00  INFO 26016 --- [registroReceitas] [main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
-2026-04-27T17:08:00.575-03:00  WARN 26016 --- [registroReceitas] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2026-04-27T17:08:00.710-03:00  INFO 26016 --- [registroReceitas] [main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
-2026-04-27T17:08:00.889-03:00  INFO 26016 --- [registroReceitas] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 80 (http) with context path '/'
-2026-04-27T17:08:00.892-03:00  INFO 26016 --- [registroReceitas] [main] c.a.r.RegistroReceitasApplication        : Started RegistroReceitasApplication in 2.84 seconds (process running for 3.231)
-2026-04-27T17:08:04.838-03:00  INFO 26016 --- [registroReceitas] [http-nio-80-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-04-27T17:08:04.838-03:00  INFO 26016 --- [registroReceitas] [http-nio-80-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2026-04-27T17:08:04.839-03:00  INFO 26016 --- [registroReceitas] [http-nio-80-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
-2026-04-27T17:08:10.604-03:00  INFO 26016 --- [registroReceitas] [http-nio-80-exec-2] c.a.r.service.UsuarioService             : Login realizado com sucesso para o usuário: arthur.fabrin028@gmail.com
-2026-04-27T17:08:37.481-03:00  INFO 26016 --- [registroReceitas] [http-nio-80-exec-8] c.a.r.service.ReceitaService             : Receita salva com sucesso. ID: 8
-2026-04-27T17:08:37.490-03:00  INFO 26016 --- [registroReceitas] [task-1] c.a.r.notification.EmailService          : Email arthur_admin inválido!
-2026-04-27T17:08:37.491-03:00  INFO 26016 --- [registroReceitas] [task-1] c.a.r.notification.EmailService          : Email arthur.teste inválido!
-2026-04-27T17:08:37.491-03:00  INFO 26016 --- [registroReceitas] [task-1] c.a.r.notification.EmailService          : Email arthur.alonso inválido!
-2026-04-27T17:09:49.843-03:00  INFO 26016 --- [registroReceitas] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
-2026-04-27T17:09:49.847-03:00  INFO 26016 --- [registroReceitas] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
-2026-04-27T17:09:49.850-03:00  INFO 26016 --- [registroReceitas] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2026-04-27T17:09:49.851-03:00  INFO 26016 --- [registroReceitas] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2026-04-27T17:09:49.853-03:00  INFO 26016 --- [registroReceitas] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-04-28T10:09:20.661-03:00  INFO 49356 --- [registroReceitas] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-04-28T10:09:20.666-03:00  INFO 49356 --- [registroReceitas] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-28T10:09:20.705-03:00  INFO 49356 --- [registroReceitas] [main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-04-28T10:09:20.825-03:00  WARN 49356 --- [registroReceitas] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-04-28T10:09:20.957-03:00  INFO 49356 --- [registroReceitas] [main] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2026-04-28T10:09:20.958-03:00  WARN 49356 --- [registroReceitas] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2026-04-28T10:09:21.099-03:00  INFO 49356 --- [registroReceitas] [main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-04-28T10:09:21.255-03:00  INFO 49356 --- [registroReceitas] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 80 (http) with context path '/'
+2026-04-28T10:09:21.259-03:00  INFO 49356 --- [registroReceitas] [main] c.a.r.RegistroReceitasApplication        : Started RegistroReceitasApplication in 2.893 seconds (process running for 3.273)
+2026-04-28T10:09:36.445-03:00  INFO 49356 --- [registroReceitas] [http-nio-80-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-04-28T10:09:36.445-03:00  INFO 49356 --- [registroReceitas] [http-nio-80-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-04-28T10:09:36.446-03:00  INFO 49356 --- [registroReceitas] [http-nio-80-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-04-28T10:09:59.229-03:00  INFO 49356 --- [registroReceitas] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-04-28T10:09:59.232-03:00  INFO 49356 --- [registroReceitas] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-04-28T10:09:59.236-03:00  INFO 49356 --- [registroReceitas] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-04-28T10:09:59.238-03:00  INFO 49356 --- [registroReceitas] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-04-28T10:09:59.239-03:00  INFO 49356 --- [registroReceitas] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

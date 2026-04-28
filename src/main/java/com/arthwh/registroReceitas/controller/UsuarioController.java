@@ -3,7 +3,6 @@ package com.arthwh.registroReceitas.controller;
 import com.arthwh.registroReceitas.dto.UsuarioUpdateDTO;
 import com.arthwh.registroReceitas.model.Usuario;
 import com.arthwh.registroReceitas.service.UsuarioService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

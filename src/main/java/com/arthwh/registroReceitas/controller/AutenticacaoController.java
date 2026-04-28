@@ -1,10 +1,11 @@
 package com.arthwh.registroReceitas.controller;
 
-import com.arthwh.registroReceitas.dto.LoginDTO;
-import com.arthwh.registroReceitas.dto.UsuarioCreateDTO;
+import com.arthwh.registroReceitas.dto.LoginResponseDTO;
+import com.arthwh.registroReceitas.dto.UsuarioLoginDTO;
+import com.arthwh.registroReceitas.dto.UsuarioRegisterDTO;
 import com.arthwh.registroReceitas.model.Usuario;
-import com.arthwh.registroReceitas.service.UsuarioService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.arthwh.registroReceitas.service.AutenticacaoService;
+import com.arthwh.registroReceitas.service.JwtService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,39 +16,41 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/auth")
 public class AutenticacaoController {
-    private final UsuarioService usuarioService;
+    private final AutenticacaoService autenticacaoService;
+    private final JwtService jwtService;
 
-    public AutenticacaoController(UsuarioService usuarioService) {
-        this.usuarioService = usuarioService;
+    public AutenticacaoController(AutenticacaoService autenticacaoService, JwtService jwtService) {
+        this.autenticacaoService = autenticacaoService;
+        this.jwtService = jwtService;
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginDTO loginDto){
-        if (loginDto == null){
+    public ResponseEntity<LoginResponseDTO> login(@RequestBody UsuarioLoginDTO loginDto) {
+        if (loginDto == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
 
-        String token = usuarioService.login(loginDto);
+        Usuario usuarioAutenticado = autenticacaoService.authenticate(loginDto);
+        String token = jwtService.generateToken(usuarioAutenticado);
 
-        if (token != null){
-            return ResponseEntity.status(HttpStatus.OK).body(token);
+        if (token != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(new LoginResponseDTO(token, jwtService.getExpirationTime()));
         }
 
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<Usuario> createUsuario(@RequestBody UsuarioCreateDTO usuarioDto){
-        if (usuarioDto == null){
+    @PostMapping("/signup")
+    public ResponseEntity<Usuario> createUsuario(@RequestBody UsuarioRegisterDTO usuarioRegisterDto) {
+        if (usuarioRegisterDto == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
 
-        Usuario usuario = usuarioService.createUsuario(usuarioDto);
-
-        if (usuario != null){
-            return ResponseEntity.status(HttpStatus.CREATED).body(usuario);
+        try {
+            Usuario usuarioRegistrado = autenticacaoService.signup(usuarioRegisterDto);
+            return ResponseEntity.status(HttpStatus.CREATED).body(usuarioRegistrado);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
-
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
     }
 }

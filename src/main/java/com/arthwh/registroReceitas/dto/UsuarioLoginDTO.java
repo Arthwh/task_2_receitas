@@ -1,6 +1,6 @@
 package com.arthwh.registroReceitas.dto;
 
-public record LoginDTO(
+public record UsuarioLoginDTO(
         String login,
         String senha
 ) {
