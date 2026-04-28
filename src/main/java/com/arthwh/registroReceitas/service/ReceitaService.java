@@ -6,11 +6,15 @@ import com.arthwh.registroReceitas.event.ReceitaAtualizadaEvent;
 import com.arthwh.registroReceitas.event.ReceitaCriadaEvent;
 import com.arthwh.registroReceitas.exception.ReceitaNotFoundException;
 import com.arthwh.registroReceitas.model.Receita;
+import com.arthwh.registroReceitas.model.TipoReceitaEnum;
 import com.arthwh.registroReceitas.repository.ReceitaRepository;
+import com.arthwh.registroReceitas.repository.ReceitaSpecification;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Slf4j
@@ -31,6 +35,21 @@ public class ReceitaService {
 
     public List<Receita> getReceitas(){
         return  receitaRepository.findAll();
+    }
+
+    public List<Receita> getReceitasComFiltros(TipoReceitaEnum tipoReceita, LocalDate dataInicio){
+        //Query vazia
+        Specification<Receita> specification = (root, query, criteriaBuilder) -> criteriaBuilder.conjunction();
+
+        if (tipoReceita != null) {
+            specification = specification.and(ReceitaSpecification.hasRecipeType(tipoReceita));
+        }
+
+        if (dataInicio != null) {
+            specification = specification.and(ReceitaSpecification.hasInitialDate(dataInicio));
+        }
+
+        return  receitaRepository.findAll(specification);
     }
 
     public Receita createReceita(ReceitaRegisterDTO receitaDto){

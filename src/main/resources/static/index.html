@@ -2,281 +2,187 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema de Receitas</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body { background-color: #f4f7f6; }
-        .hidden { display: none !important; }
-        .card-receita { transition: transform 0.2s; border-left: 5px solid #0d6efd; }
-        .card-receita:hover { transform: scale(1.02); }
-        .navbar { box-shadow: 0 2px 4px rgba(0,0,0,.1); }
-    </style>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
+
 <body>
+<div id="app" v-cloak>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="/">Sistema de Receitas</a>
+            <div v-if="isLoggedIn" class="d-flex">
+                <button class="btn text-white form-control me-2" @click="showModal('editUserModal')">
+                    <i class="bi bi-person"></i> {{ userLogin }}
+                </button>
+                <button class="btn btn-danger" @click="logout">Sair</button>
+            </div>
+        </div>
+    </nav>
 
-<nav class="navbar navbar-dark bg-dark mb-4">
-    <div class="container">
-        <a class="navbar-brand" href="#">Registro de Receitas</a>
-        <div id="navButtons" class="hidden">
-            <button class="btn btn-outline-info btn-sm me-2" onclick="abrirModalPerfil()">Meu Perfil</button>
-            <button id="btnLogout" class="btn btn-outline-light btn-sm" onclick="logout()">Sair</button>
+    <div class="container-sm mt-5">
+        <div v-if="!isLoggedIn" class="auth-card">
+            <input v-model="authForm.login" placeholder="Login" class="form-control mb-2">
+            <input v-model="authForm.senha" type="password" placeholder="Senha" class="form-control mb-2">
+            <button @click="login" class="btn btn-primary-custom w-100 mt-2">Entrar</button>
+            <button @click="showModal('createUserModal')" class="btn btn-secondary-custom w-100 mt-2">Criar conta</button>
+        </div>
+
+        <div v-else>
+            <div class="d-flex justify-content-between align-items-center mb-4 p-3 bg-white rounded-4 shadow-sm">
+                <h2 class="fw-bold mb-0">Receitas</h2>
+
+                <div class="d-flex gap-2 align-items-center">
+                    <button class="btn btn-primary-custom" @click="showModal('recipeModal')">
+                        <i class="bi bi-plus-lg me-1"></i> Nova Receita
+                    </button>
+
+                    <div class="dropdown">
+                        <button class="btn btn-secondary-custom dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside">
+                            <i class="bi bi-filter-right me-1"></i> Filtros & Opções
+                        </button>
+
+                        <div class="dropdown-menu dropdown-menu-end p-4 shadow-lg border-0" style="min-width: 300px; border-radius: 15px;">
+                            <h6 class="dropdown-header px-0 mb-3 text-dark fw-bold">Filtrar Listagem</h6>
+
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold text-muted">Tipo de Receita</label>
+                                <select v-model="filtroTipo" class="form-select form-select-sm border-light bg-light">
+                                    <option value="">Todos os tipos</option>
+                                    <option value="SALGADO">Salgado</option>
+                                    <option value="DOCE">Doce</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold text-muted">A partir da data</label>
+                                <input type="date" v-model="filtroData" class="form-control form-control-sm border-light bg-light">
+                            </div>
+
+                            <div class="d-grid mt-3">
+                                <button class="btn btn-primary-custom btn-sm" @click="loadRecipes">
+                                    <i class="bi bi-file-earmark-pdf-fill me-1"></i> Aplicar Filtros
+                                </button>
+                            </div>
+
+                            <hr class="dropdown-divider">
+
+                            <div class="d-grid mt-3">
+                                <button class="btn btn-outline-danger btn-sm" @click="exportPdf">
+                                    <i class="bi bi-file-earmark-pdf-fill me-1"></i> Exportar Resultados (PDF)
+                                </button>
+                            </div>
+
+                            <div class="text-center mt-2">
+                                <a href="#" class="text-decoration-none small text-secondary" @click.prevent="clearFilters">Limpar filtros</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-4" v-for="r in receitas" :key="r.id">
+                    <div class="card h-100 recipe-card shadow-sm">
+                        <div class="card-body">
+                            <span :class="['badge mb-2', r.tipoReceita === 'DOCE' ? 'bg-danger' : 'bg-primary']">
+                                {{ r.tipoReceita }}
+                            </span>
+                            <h5 class="card-title">{{ r.nome }}</h5>
+                            <p class="text-muted small">{{ r.descricao }}</p>
+                            <div class="d-flex justify-content-between">
+                                <span class="fw-bold">R$ {{ r.custo.toFixed(2) }}</span>
+                                <small class="text-secondary">{{ formatDate(r.dataRegistro) }}</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</nav>
 
-<div class="container">
-    <div id="sectionLogin" class="row justify-content-center">
-        <div class="col-md-4">
-            <div class="card shadow">
-                <div class="card-body">
-                    <h3 class="card-title text-center mb-4">Acesso</h3>
+    <div class="modal fade" id="editUserModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Editar Perfil</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3"><label>Id</label><input v-model="userForm.id" class="form-control" :disabled="true"></div>
+                    <div class="mb-3"><label>Nome</label><input v-model="userForm.nome" class="form-control"></div>
+                    <div class="mb-3"><label>Login</label><input v-model="userForm.login" class="form-control" :disabled="true"></div>
+                    <div class="mb-3"><label>Senha</label><input v-model="userForm.senha" type="password" class="form-control"></div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary-custom w-100" @click="updateUser">Confirmar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="createUserModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Cadastro</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3"><label>Nome</label><input v-model="userForm.nome" class="form-control"></div>
+                    <div class="mb-3"><label>Login</label><input v-model="userForm.login" class="form-control"></div>
+                    <div class="mb-3"><label>Senha</label><input v-model="userForm.senha" type="password" class="form-control"></div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary-custom w-100" @click="createUser">Confirmar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="recipeModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Cadastro de Receita</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
                     <div class="mb-3">
-                        <label class="form-label">Login</label>
-                        <input type="text" id="loginUser" class="form-control">
+                        <label class="form-label">Nome</label>
+                        <input v-model="recipeForm.nome" class="form-control">
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Senha</label>
-                        <input type="password" id="senhaUser" class="form-control">
+                        <label class="form-label">Descrição</label>
+                        <textarea v-model="recipeForm.descricao" class="form-control" rows="3"></textarea>
                     </div>
-                    <button class="btn btn-primary w-100 mb-3" onclick="fazerLogin()">Entrar</button>
-                    <div class="text-center">
-                        <a href="#" class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#modalUsuario">Não tem conta? Cadastre-se</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="sectionMain" class="hidden">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2>Receitas</h2>
-            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalReceita">+ Nova Receita</button>
-        </div>
-        <div class="row" id="listaReceitas"></div>
-    </div>
-</div>
-
-<div class="modal fade" id="modalUsuario" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalUserTitle">Cadastrar Usuário</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <input type="hidden" id="userId">
-                <div class="mb-3">
-                    <label class="form-label">Nome Completo</label>
-                    <input type="text" id="userName" class="form-control">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Login (usuário)</label>
-                    <input type="text" id="userLoginInput" class="form-control">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Senha</label>
-                    <input type="password" id="userPassword" class="form-control">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" onclick="salvarUsuario()">Confirmar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="modalReceita" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Cadastrar Receita</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <div class="mb-3"><label class="form-label">Nome</label><input type="text" id="recNome" class="form-control"></div>
-                <div class="mb-3"><label class="form-label">Descrição</label><textarea id="recDesc" class="form-control"></textarea></div>
-                <div class="row">
-                    <div class="col-md-6 mb-3"><label class="form-label">Custo (R$)</label><input type="number" step="0.01" id="recCusto" class="form-control"></div>
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label">Tipo</label>
-                        <select id="recTipo" class="form-select">
-                            <option value="SALGADO">Salgado</option>
-                            <option value="DOCE">Doce</option>
-                        </select>
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <label class="form-label">Custo (R$)</label>
+                            <input v-model="recipeForm.custo" type="number" step="0.01" class="form-control"></div>
+                        <div class="col-6">
+                            <label class="form-label">Tipo</label>
+                            <select v-model="recipeForm.tipoReceita" class="form-select">
+                                <option value="SALGADO">Salgado</option>
+                                <option value="DOCE">Doce</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" onclick="salvarReceita()">Salvar Receita</button>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary-custom w-100" @click="saveRecipe">Salvar Receita</button>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-    const API_BASE = window.location.origin;
-    let userModalBS;
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
-    document.addEventListener("DOMContentLoaded", () => {
-        userModalBS = new bootstrap.Modal(document.getElementById('modalUsuario'));
-        const token = localStorage.getItem("token");
-        if (token) mostrarTelaPrincipal();
-    });
-
-    // --- LÓGICA DE USUÁRIO ---
-
-    async function salvarUsuario() {
-        const id = document.getElementById("userId").value;
-        const dados = {
-            id: document.getElementById("userId").value,
-            nome: document.getElementById("userName").value,
-            login: document.getElementById("userLoginInput").value,
-            senha: document.getElementById("userPassword").value,
-            situacao: "ATIVO"
-        };
-
-        const url = id ? `${API_BASE}/usuarios` : `${API_BASE}/auth/signup`;
-        const method = id ? "PUT" : "POST";
-        const token = localStorage.getItem("token");
-
-        try {
-            const res = await fetch(url, {
-                method: method,
-                headers: {
-                    "Content-Type": "application/json",
-                    ...(token && { "Authorization": `Bearer ${token}` })
-                },
-                body: JSON.stringify(dados)
-            });
-
-            if (res.ok) {
-                alert(id ? "Perfil atualizado!" : "Usuário cadastrado! Agora faça login.");
-                userModalBS.hide();
-                if(id) location.reload();
-            } else {
-                alert("Erro ao processar usuário. Verifique os dados.");
-            }
-        } catch (e) { alert("Erro de conexão."); }
-    }
-
-    async function abrirModalPerfil() {
-        const login = localStorage.getItem("userLogin");
-        const token = localStorage.getItem("token");
-
-        // Buscamos os dados do usuário para preencher o form
-        const res = await fetch(`${API_BASE}/usuarios/perfil/${login}`, {
-            headers: { "Authorization": `Bearer ${token}` }
-        });
-
-        if (res.ok) {
-            const u = await res.json();
-            document.getElementById("userId").value = u.id;
-            document.getElementById("userName").value = u.nome;
-            document.getElementById("userLoginInput").value = u.login;
-            document.getElementById("userLoginInput").disabled = true;
-            document.getElementById("modalUserTitle").innerText = "Editar Perfil";
-            userModalBS.show();
-        }
-    }
-
-    // --- LÓGICA DE LOGIN ---
-
-    async function fazerLogin() {
-        const login = document.getElementById("loginUser").value;
-        const senha = document.getElementById("senhaUser").value;
-
-        try {
-            const response = await fetch(`${API_BASE}/auth/login`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ login, senha })
-            });
-
-            if (response.ok) {
-                const token = await response.text();
-                localStorage.setItem("token", token);
-                localStorage.setItem("userLogin", login);
-                mostrarTelaPrincipal();
-            } else {
-                alert("Falha no login!");
-            }
-        } catch (e) { alert("Erro ao conectar."); }
-    }
-
-    function mostrarTelaPrincipal() {
-        document.getElementById("sectionLogin").classList.add("hidden");
-        document.getElementById("sectionMain").classList.remove("hidden");
-        document.getElementById("navButtons").classList.remove("hidden");
-        carregarReceitas();
-    }
-
-    // --- LÓGICA DE RECEITAS ---
-
-    async function carregarReceitas() {
-        const token = localStorage.getItem("token");
-        const res = await fetch(`${API_BASE}/receitas`, {
-            headers: { "Authorization": `Bearer ${token}` }
-        });
-        const receitas = await res.json();
-        const container = document.getElementById("listaReceitas");
-        container.innerHTML = "";
-
-        receitas.forEach(r => {
-            const data = r.dataRegistro ? new Date(r.dataRegistro).toLocaleDateString() : 'N/A';
-            container.innerHTML += `
-                <div class="col-md-4 mb-3">
-                    <div class="card shadow-sm h-100 card-receita">
-                        <div class="card-body">
-                            <span class="badge ${r.tipoReceita === 'DOCE' ? 'bg-danger' : 'bg-primary'} mb-2">${r.tipoReceita}</span>
-                            <h5 class="card-title">${r.nome}</h5>
-                            <p class="card-text text-muted small">${r.descricao}</p>
-                            <div class="d-flex justify-content-between align-items-center mt-3">
-                                <strong class="text-success">R$ ${r.custo.toFixed(2)}</strong>
-                                <small class="text-secondary">📅 ${data}</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>`;
-        });
-    }
-
-    async function salvarReceita() {
-        const token = localStorage.getItem("token");
-        const login = localStorage.getItem("userLogin");
-
-        const novaReceita = {
-            nome: document.getElementById("recNome").value,
-            descricao: document.getElementById("recDesc").value,
-            custo: parseFloat(document.getElementById("recCusto").value),
-            tipoReceita: document.getElementById("recTipo").value,
-            login: login
-        };
-
-        const res = await fetch(`${API_BASE}/receitas`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
-            },
-            body: JSON.stringify(novaReceita)
-        });
-
-        if (res.ok) {
-            alert("Receita salva!");
-            location.reload();
-        } else {
-            alert("Erro ao salvar.");
-        }
-    }
-
-    function logout() {
-        localStorage.clear();
-        location.reload();
-    }
-</script>
+<script src="js/api.js"></script>
+<script src="js/app.js"></script>
 </body>
 </html>

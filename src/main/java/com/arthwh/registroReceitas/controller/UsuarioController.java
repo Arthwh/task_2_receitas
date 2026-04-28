@@ -27,7 +27,7 @@ public class UsuarioController {
             return ResponseEntity.status(HttpStatus.OK).body(usuario);
         }
 
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
     @GetMapping("/perfil/{login}")
@@ -38,7 +38,7 @@ public class UsuarioController {
             return ResponseEntity.status(HttpStatus.OK).body(usuario);
         }
 
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
     @GetMapping
@@ -49,7 +49,7 @@ public class UsuarioController {
     @PutMapping
     public ResponseEntity<Usuario> updateUsuario(@RequestBody UsuarioUpdateDTO usuarioDto){
         if (usuarioDto == null){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
 
         Usuario usuario = usuarioService.updateUsuario(usuarioDto);
@@ -57,7 +57,7 @@ public class UsuarioController {
             return ResponseEntity.status(HttpStatus.OK).body(usuario);
         }
 
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 
     @DeleteMapping("/{id}")
@@ -67,6 +67,6 @@ public class UsuarioController {
         if (usuario != null){
             return ResponseEntity.status(HttpStatus.OK).body(usuario);
         }
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 }

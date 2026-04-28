@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -33,7 +34,7 @@ public class SecurityConfiguration {
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(req -> {
-                    req.requestMatchers("/", "/index.html", "/static/**", "/js/**", "/css/**").permitAll(); //Libera itens estáticos
+                    req.requestMatchers("/", "/index.html", "/js/**", "/css/**", "/assets/**", "/favicon.ico").permitAll(); //Libera itens estáticos
                     req.requestMatchers("/auth/**").permitAll(); // Libera o login e autenticação
                     req.anyRequest().authenticated(); // Bloqueia o resto
                 })
@@ -49,12 +50,25 @@ public class SecurityConfiguration {
 
         configuration.setAllowedOrigins(List.of("http://localhost:8080"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(List.of("Authorization","Content-Type"));
+        configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 
-        source.registerCorsConfiguration("/**",configuration);
+        source.registerCorsConfiguration("/**", configuration);
 
         return source;
+    }
+
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        //Faz o Spring ignorar essas pastas na autenticacao
+        return web -> web.ignoring().requestMatchers(
+                "/js/**",
+                "/css/**",
+                "/assets/**",
+                "/index.html",
+                "/favicon.ico",
+                "/"
+        );
     }
 }
