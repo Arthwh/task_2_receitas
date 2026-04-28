@@ -25,6 +25,7 @@ createApp({
                 isLoggedIn.value = true;
                 userLogin.value = authForm.login;
                 await loadRecipes();
+                await loadUserData();
             } catch (e) {
                 alert("Login inválido!");
             }
@@ -88,14 +89,16 @@ createApp({
         };
 
         const updateUser = async () => {
-            await api.put('/usuario', {...userForm});
+            console.log("DadosUsuario: "+userForm)
+            await api.put('/usuarios', {...userForm});
             alert("Usuário atualizado com sucesso!");
-            hideModal('createUserModal');
+            hideModal('editUserModal');
+            await loadUserData();
         };
 
         const exportPdf = async () => {
             try {
-                const response = await api.get('/receitas/exportar', {
+                const response = await api.get('/receitas/export', {
                     params: {
                         tipo: filtroTipo.value,
                         data: filtroData.value
@@ -112,7 +115,7 @@ createApp({
                 link.click();
                 link.remove();
             } catch (e) {
-                alert("Erro ao gerar PDF. Verifique se o backend está ativo.");
+                alert("Erro ao gerar PDF!");
             }
         };
 
@@ -147,7 +150,7 @@ createApp({
         });
 
         return {
-            isLoggedIn, userLogin, receitas, authForm, recipeForm, userForm, filtroTipo, filtroData,
+            isLoggedIn, userLogin, receitas, authForm, recipeForm, userForm, filtroTipo, filtroData, createUserForm,
             login, logout, showModal, saveRecipe, createUser, updateUser, exportPdf, clearFilters, loadRecipes, loadUserData, formatDate
         };
     }

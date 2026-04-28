@@ -4,12 +4,16 @@ import com.arthwh.registroReceitas.dto.ReceitaRegisterDTO;
 import com.arthwh.registroReceitas.dto.ReceitaUpdateDTO;
 import com.arthwh.registroReceitas.model.Receita;
 import com.arthwh.registroReceitas.model.TipoReceitaEnum;
+import com.arthwh.registroReceitas.service.ExportService;
 import com.arthwh.registroReceitas.service.ReceitaService;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.ByteArrayOutputStream;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -17,9 +21,11 @@ import java.util.List;
 @RequestMapping("/receitas")
 public class ReceitaController {
     private final ReceitaService receitaService;
+    private final ExportService exportService;
 
-    public ReceitaController(ReceitaService receitaService) {
+    public ReceitaController(ReceitaService receitaService, ExportService exportService) {
         this.receitaService = receitaService;
+        this.exportService = exportService;
     }
 
     @GetMapping("/{id}")
@@ -80,10 +86,16 @@ public class ReceitaController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
-//    @GetMapping("/export")
-//    public ResponseEntity<byte[]> exportReceitasToPdf(@RequestParam("tipo") String tipoReceita,
-//                                                      @RequestParam("dataInicio") String  dataInicio,
-//                                                      @RequestParam("dataFim") String dataFim){
-//        List<Receita> receitas = receitaService.getReceitas();
-//    }
+    @GetMapping("/export")
+    public ResponseEntity<byte[]> exportReceitasToPdf(@RequestParam(required = false) TipoReceitaEnum tipoReceita,
+                                                      @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataInicio){
+        List<Receita> receitas = receitaService.getReceitasComFiltros(tipoReceita, dataInicio);
+        ByteArrayOutputStream pdfStream = exportService.exportarReceitasParaPdf(receitas);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=receitas.pdf");
+        headers.setContentLength(pdfStream.size());
+        return new ResponseEntity<>(pdfStream.toByteArray(), headers, HttpStatus.OK);
+    }
 }

@@ -25,9 +25,6 @@ public class AutenticacaoService {
 
     private final AuthenticationManager authenticationManager;
 
-    private static final String EMAIL_REGEX = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
-    private static final Pattern pattern = Pattern.compile(EMAIL_REGEX);
-
     public AutenticacaoService(
             UsuarioRepository usuarioRepository,
             AuthenticationManager authenticationManager,
@@ -71,6 +68,9 @@ public class AutenticacaoService {
 
     //Valida se o login é um e-mail
     private boolean isValidLogin(String login){
+        String EMAIL_REGEX = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
+        Pattern pattern = Pattern.compile(EMAIL_REGEX);
+
         if (login == null) return false;
         Matcher matcher = pattern.matcher(login);
         return matcher.matches();
