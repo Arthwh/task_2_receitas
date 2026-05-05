@@ -1,7 +1,10 @@
 package com.arthwh.registroReceitas.model;
 
+import com.arthwh.registroReceitas.dto.UsuarioRegisterDTO;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.JdbcType;
 import org.hibernate.dialect.type.PostgreSQLEnumJdbcType;
@@ -16,16 +19,19 @@ import java.util.List;
 @Getter
 @Entity
 @Table(name = "usuario")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Usuario implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id", nullable = false, unique = true, updatable = false)
     private int id;
 
     @Column(name = "nome", nullable = false)
     private String nome;
 
-    @Column(name = "login", nullable = false)
+
+    @Column(name = "login", nullable = false, unique = true)
     private String login;
 
     @Column(name = "senha", nullable = false)

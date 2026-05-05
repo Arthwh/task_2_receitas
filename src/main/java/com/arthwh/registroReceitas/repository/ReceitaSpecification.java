@@ -5,7 +5,6 @@ import com.arthwh.registroReceitas.model.TipoReceitaEnum;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class ReceitaSpecification {
     public static Specification<Receita> hasRecipeType(TipoReceitaEnum tipoReceita) {

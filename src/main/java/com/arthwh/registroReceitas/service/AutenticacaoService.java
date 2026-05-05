@@ -43,7 +43,7 @@ public class AutenticacaoService {
         Usuario usuario = new Usuario();
 
         usuario.setNome(usuarioRegisterDTO.nome());
-        String senhaCriptografada = passwordEncoder.encode(usuarioRegisterDTO.senha());
+        String senhaCriptografada = hashPassword(usuarioRegisterDTO.senha());
         usuario.setSenha(senhaCriptografada);
         usuario.setLogin(usuarioRegisterDTO.login());
         usuario.setSituacao(SituacaoUsuarioEnum.ATIVO);
@@ -74,5 +74,9 @@ public class AutenticacaoService {
         if (login == null) return false;
         Matcher matcher = pattern.matcher(login);
         return matcher.matches();
+    }
+
+    public String hashPassword(String senha) {
+        return passwordEncoder.encode(senha);
     }
 }
