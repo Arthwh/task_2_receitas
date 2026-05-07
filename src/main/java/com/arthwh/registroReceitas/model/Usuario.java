@@ -1,6 +1,5 @@
 package com.arthwh.registroReceitas.model;
 
-import com.arthwh.registroReceitas.dto.UsuarioRegisterDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,7 +28,6 @@ public class Usuario implements UserDetails {
 
     @Column(name = "nome", nullable = false)
     private String nome;
-
 
     @Column(name = "login", nullable = false, unique = true)
     private String login;

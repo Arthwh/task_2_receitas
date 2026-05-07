@@ -12,6 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Optional;
 
@@ -20,6 +21,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
+@ActiveProfiles("test") //Indica pro JUnit que deve usar o properties de teste
 class UsuarioServiceTest {
     @Mock
     private UsuarioRepository usuarioRepository;
@@ -29,12 +31,11 @@ class UsuarioServiceTest {
     private UsuarioService usuarioService;
 
     @Test
-    @DisplayName("Should update an user successfully.")
+    @DisplayName("Case 1: Should update an user successfully.")
     void updateUsuarioSuccess() {
-        Usuario usuarioEncontrado = criarUsuarioMock();
-
         String novoNome = "Usuario atualizado";
         String novaSenha = "senha atualizada";
+        Usuario usuarioEncontrado = criarUsuarioMock();
         UsuarioUpdateDTO usuarioUpdateDTO = new UsuarioUpdateDTO(usuarioEncontrado.getId(), novoNome, novaSenha);
 
         when(usuarioRepository.findById(usuarioUpdateDTO.id())).thenReturn(Optional.of(usuarioEncontrado));
@@ -56,7 +57,7 @@ class UsuarioServiceTest {
     }
 
     @Test
-    @DisplayName("Should not update an user successfully.")
+    @DisplayName("Case 2: Should not update an user successfully.")
     void updateUsuarioError() {
         UsuarioUpdateDTO usuarioUpdateDTO = new UsuarioUpdateDTO(1, "Teste de erro update usuário", "Nova senha");
 

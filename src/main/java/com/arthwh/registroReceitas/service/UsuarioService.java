@@ -22,7 +22,8 @@ public class UsuarioService {
     }
 
     public Usuario getUsuarioById(int id) {
-        return usuarioRepository.findById(id).orElseThrow(UsuarioNotFoundException::new);
+        return usuarioRepository.findById(id)
+                .orElseThrow(UsuarioNotFoundException::new);
     }
 
     public Usuario getUsuarioByLogin(String login) {

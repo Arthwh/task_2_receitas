@@ -38,7 +38,7 @@ class AutenticacaoServiceTest {
     private AutenticacaoService autenticacaoService;
 
     @Test
-    @DisplayName("Should create an user successfully.")
+    @DisplayName("Case 1: Should create an user successfully.")
     void signupSuccess() throws InvalidPropertiesFormatException {
         Usuario usuarioSalvoMock = criarUsuarioMock();
         UsuarioRegisterDTO usuarioASerSalvo = new UsuarioRegisterDTO(
@@ -57,10 +57,27 @@ class AutenticacaoServiceTest {
         assertEquals(usuarioASerSalvo.senha(), usuarioRetornado.getSenha());
 
         verify(usuarioRepository, times(1)).save(any(Usuario.class));
+        verify(passwordEncoder, times(1)).encode(usuarioASerSalvo.senha());
     }
 
     @Test
-    @DisplayName("Should authenticate an user successfully.")
+    @DisplayName("Case 2: Should not create an user successfully due to an invalid login format.")
+    void signupError() {
+        UsuarioRegisterDTO usuarioASerSalvo = new UsuarioRegisterDTO(
+                "Usuário inválido",
+                "Login em formato inválido",
+                "Senha 123");
+
+
+        assertThrows(InvalidPropertiesFormatException.class,
+                () ->  autenticacaoService.signup(usuarioASerSalvo));
+
+        verify(passwordEncoder, never()).encode(any(String.class));
+        verify(usuarioRepository, never()).save(any(Usuario.class));
+    }
+
+    @Test
+    @DisplayName("Case 3: Should authenticate an user successfully.")
     void authenticateSuccess() {
         //Cria os objetos usados no teste
         Usuario usuarioAutenticado = criarUsuarioMock();
@@ -84,7 +101,7 @@ class AutenticacaoServiceTest {
     }
 
     @Test
-    @DisplayName("Should not authenticate an user successfully.")
+    @DisplayName("Case 4: Should not authenticate an user successfully.")
     void authenticateError() {
         //Cria os objetos usados no teste
         Usuario usuarioAutenticado = criarUsuarioMock();

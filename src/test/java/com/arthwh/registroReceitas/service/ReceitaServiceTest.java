@@ -36,11 +36,15 @@ class ReceitaServiceTest {
     private ReceitaService receitaService;
 
     @Test
-    @DisplayName("Should create an recipe and event publication successfully.")
+    @DisplayName("Case 1: Should create an recipe and event publication successfully.")
     void createReceitaSuccess() {
         //Prepara os objeto
         Receita receitaSalvaMock = criarReceitaMock();
-        ReceitaRegisterDTO receitaRegisterDto = new ReceitaRegisterDTO(receitaSalvaMock.getNome(), receitaSalvaMock.getDescricao(), receitaSalvaMock.getCusto(), receitaSalvaMock.getTipoReceita());
+        ReceitaRegisterDTO receitaRegisterDto = new ReceitaRegisterDTO(
+                receitaSalvaMock.getNome(),
+                receitaSalvaMock.getDescricao(),
+                receitaSalvaMock.getCusto(),
+                receitaSalvaMock.getTipoReceita());
 
         // Diz ao mockito o que retornar em um método de uma classe mockada
         when(receitaRepository.save(any(Receita.class))).thenReturn(receitaSalvaMock);
@@ -63,13 +67,15 @@ class ReceitaServiceTest {
     }
 
     @Test
-    @DisplayName("Should update an recipe and create event publication successfully.")
+    @DisplayName("Case 2: Should update an recipe and create event publication successfully.")
     void updateReceitaSuccess() {
-        Receita receitaEncontradaMock = criarReceitaMock();
-
         String novaDescricao = "Bolo de cenoura";
         Double novoCusto = 30.00;
-        ReceitaUpdateDTO receitaUpdateDTO = new ReceitaUpdateDTO(receitaEncontradaMock.getId(), novaDescricao, novoCusto);
+        Receita receitaEncontradaMock = criarReceitaMock();
+        ReceitaUpdateDTO receitaUpdateDTO = new ReceitaUpdateDTO(
+                receitaEncontradaMock.getId(),
+                novaDescricao,
+                novoCusto);
 
         when(receitaRepository.findById(receitaEncontradaMock.getId())).thenReturn(Optional.of(receitaEncontradaMock));
         when(receitaRepository.save(any(Receita.class))).thenReturn(receitaEncontradaMock);
@@ -90,7 +96,7 @@ class ReceitaServiceTest {
     }
 
     @Test
-    @DisplayName("Should not update an recipe and must throw an ReceitaNotFoundException.")
+    @DisplayName("Case 3: Should not update an recipe and must throw an ReceitaNotFoundException.")
     void updateReceitaError() {
         //Cria um dto falso (não importa os dados, pois não será validado)
         ReceitaUpdateDTO receitaUpdateDTO = new ReceitaUpdateDTO(1, "Teste de erro update receita", 10.00);

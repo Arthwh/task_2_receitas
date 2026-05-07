@@ -15,7 +15,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@DataJpaTest //Indica pro Spring que será testado uma classe JPA
+@DataJpaTest //Indica para o Spring que será testado uma classe JPA
 @ActiveProfiles("test") //Indica pro JUnit que deve usar o properties de teste
 class UsuarioRepositoryTest {
     @Autowired
@@ -25,7 +25,7 @@ class UsuarioRepositoryTest {
     UsuarioRepository usuarioRepository;
 
     @Test
-    @DisplayName("Should get user successfully from database.") //Coloca uma descrição para o teste
+    @DisplayName("Case 1: Should get user successfully from database.") //Coloca uma descrição para o teste
     void findByLoginSuccess() {
         String login = "arthur.alonso@teste.br";
         String nome = "Arthur Alonso";
@@ -33,7 +33,8 @@ class UsuarioRepositoryTest {
         //Cria o dto para criar o novo usuário.
         UsuarioRegisterDTO usuarioRegisterDTO = new UsuarioRegisterDTO(nome, login, senha);
         //Cria o novo usuário no db em memória
-        Usuario novoUsuario = this.createUser(usuarioRegisterDTO);
+        Usuario novoUsuario = createUserMock(usuarioRegisterDTO);
+
         Optional<Usuario> usuarioEncontrado = this.usuarioRepository.findByLogin(novoUsuario.getLogin());
 
         // Garante que encontrou o usuário
@@ -46,7 +47,7 @@ class UsuarioRepositoryTest {
     }
 
     @Test
-    @DisplayName("Should not get user successfully from database when user not exists.") //Coloca uma descrição para o teste
+    @DisplayName("Case 2: Should not get user successfully from database when user not exists.") //Coloca uma descrição para o teste
     void findByLoginError() {
         String login = "arthur.alonso@teste.br";
 
@@ -58,7 +59,7 @@ class UsuarioRepositoryTest {
     }
 
     //Método auxiliar para inserir um usuário no DB
-    private Usuario createUser(UsuarioRegisterDTO usuarioRegisterDTO) {
+    private Usuario createUserMock(UsuarioRegisterDTO usuarioRegisterDTO) {
         Usuario usuario = new Usuario();
         usuario.setNome(usuarioRegisterDTO.nome());
         usuario.setSenha(usuarioRegisterDTO.senha());
