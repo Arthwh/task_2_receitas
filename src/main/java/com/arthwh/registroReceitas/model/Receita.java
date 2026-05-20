@@ -5,8 +5,11 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.JdbcType;
+import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.dialect.type.PostgreSQLEnumJdbcType;
+import org.hibernate.type.SqlTypes;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 @Getter
@@ -30,9 +33,10 @@ public class Receita {
     private Timestamp dataRegistro;
 
     @Column(name = "custo", nullable = false)
-    private double custo;
+    private BigDecimal custo;
 
     @Enumerated(EnumType.STRING)
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM) // Tells Hibernate this is a Postgres custom ENUM
     @Column(name = "tipo_receita", nullable = false, columnDefinition = "tipo_receita_paladar")
     @JdbcType(PostgreSQLEnumJdbcType.class)
     private TipoReceitaEnum tipoReceita;

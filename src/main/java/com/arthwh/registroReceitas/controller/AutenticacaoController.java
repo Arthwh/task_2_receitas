@@ -31,13 +31,17 @@ public class AutenticacaoController {
         }
 
         Usuario usuarioAutenticado = autenticacaoService.authenticate(loginDto);
+        if (usuarioAutenticado == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
         String token = jwtService.generateToken(usuarioAutenticado);
 
         if (token != null) {
             return ResponseEntity.status(HttpStatus.OK).body(new LoginResponseDTO(token, jwtService.getExpirationTime()));
         }
 
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 
     @PostMapping("/signup")
