@@ -17,6 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -70,7 +71,7 @@ class ReceitaServiceTest {
     @DisplayName("Case 2: Should update an recipe and create event publication successfully.")
     void updateReceitaSuccess() {
         String novaDescricao = "Bolo de cenoura";
-        Double novoCusto = 30.00;
+        BigDecimal novoCusto = BigDecimal.valueOf(30.00);
         Receita receitaEncontradaMock = criarReceitaMock();
         ReceitaUpdateDTO receitaUpdateDTO = new ReceitaUpdateDTO(
                 receitaEncontradaMock.getId(),
@@ -99,7 +100,7 @@ class ReceitaServiceTest {
     @DisplayName("Case 3: Should not update an recipe and must throw an ReceitaNotFoundException.")
     void updateReceitaError() {
         //Cria um dto falso (não importa os dados, pois não será validado)
-        ReceitaUpdateDTO receitaUpdateDTO = new ReceitaUpdateDTO(1, "Teste de erro update receita", 10.00);
+        ReceitaUpdateDTO receitaUpdateDTO = new ReceitaUpdateDTO(1, "Teste de erro update receita", BigDecimal.valueOf(15.00));
 
         when(receitaRepository.findById(1)).thenReturn(Optional.empty()); //Retorna um Optional vazio, simulando que o usuário não foi encontrado
 
@@ -120,7 +121,7 @@ class ReceitaServiceTest {
         receita.setId(1);
         receita.setNome("Bolo");
         receita.setDescricao("Bolo de chocolate");
-        receita.setCusto(25.50);
+        receita.setCusto(BigDecimal.valueOf(25.50));
         receita.setTipoReceita(TipoReceitaEnum.DOCE);
 
         return receita;
