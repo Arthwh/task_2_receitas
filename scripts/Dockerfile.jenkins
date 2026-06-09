@@ -1,0 +1,18 @@
+FROM jenkins/jenkins:lts
+
+# Desativa o assistente de instalação inicial do Jenkins
+ENV JAVA_OPTS="-Djenkins.install.runSetupWizard=false"
+
+# Copia o arquivo YAML de configuração para dentro da imagem
+COPY jenkins.yaml /var/jenkins_home/casc_configs/jenkins.yaml
+
+# Diz ao JCasC onde ler o arquivo de configuração
+ENV CASC_JENKINS_CONFIG=/var/jenkins_home/casc_configs/jenkins.yaml
+
+# Instala os plugins obrigatórios silenciosamente
+RUN jenkins-plugin-cli --plugins \
+    configuration-as-code \
+    job-dsl \
+    workflow-job \
+    workflow-aggregator \
+    git
