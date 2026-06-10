@@ -1,13 +1,20 @@
 FROM jenkins/jenkins:lts
 
+# Entra como root para instalar o cliente Docker no sistema do container
+USER root
+RUN apt-get update && apt-get install -y docker.io
+
+# Volta para o usuário padrão do Jenkins
+USER jenkins
+
 # Desativa o assistente de instalação inicial do Jenkins
 ENV JAVA_OPTS="-Djenkins.install.runSetupWizard=false"
 
 # Copia o arquivo YAML de configuração para dentro da imagem
-COPY jenkins.yaml /var/jenkins_home/casc_configs/jenkins.yaml
+COPY jenkins.yaml /usr/share/jenkins/ref/jenkins.yaml
 
 # Diz ao JCasC onde ler o arquivo de configuração
-ENV CASC_JENKINS_CONFIG=/var/jenkins_home/casc_configs/jenkins.yaml
+ENV CASC_JENKINS_CONFIG=/usr/share/jenkins/ref/jenkins.yaml
 
 # Instala os plugins obrigatórios silenciosamente
 RUN jenkins-plugin-cli --plugins \
@@ -15,4 +22,7 @@ RUN jenkins-plugin-cli --plugins \
     job-dsl \
     workflow-job \
     workflow-aggregator \
-    git
+    git \
+    docker-workflow \
+    timestamper \
+    github

@@ -36,3 +36,4 @@ build/
 /logs
 
 /scripts/jenkins.yaml
+/scripts/commands_list.txt

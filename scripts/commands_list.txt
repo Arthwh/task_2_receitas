@@ -1,0 +1,10 @@
+// Limpa as imagens do docker e containeres
+sudo ./clean_docker_images.sh
+
+// Envia arquivo pra VM
+scp <arquivo> univates@177.44.248.8:/home/univates
+
+// Executa o script inicial
+sudo ./setup-infra.sh
+
+

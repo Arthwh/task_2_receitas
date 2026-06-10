@@ -8,7 +8,6 @@ pipeline {
 	}
 
 	environment {
-//	    SONARQUBE_HOST_URL = 'http://177.44.248.8:9000'
 	    SONARQUBE_HOST_URL = 'http://localhost:9000'
 	    SONARQUBE_NEW_PASSWORD = 'SenhaUltraSecreta123@'
     }
@@ -38,7 +37,17 @@ pipeline {
 			}
 		}
 
-		stage('Testes') {
+		stage('Linter') {
+		    echo "Realizando verificação com o linter Checkstyle..."
+		    sh './mvnw checkstyle:check'
+		}
+
+		stage('Code Formater') {
+		    echo "Realizando verificação de formatação com o Spotless..."
+		    sh './mvnw spotless:check'
+		}
+
+		stage('Compilação e Testes') {
         	steps {
         		// Garante que o arquivo mvnw tem permissão para ser executado no Linux
         		sh 'chmod +x mvnw'
@@ -46,14 +55,6 @@ pipeline {
                 sh './mvnw clean test'
         	}
         }
-
-//		stage('Build') {
-//			steps {
-//			    // Builda o projeto
-//			    echo "Building project...."
-//				sh './mvnw package -DskipTests'
-//			}
-//		}
 
 		stage('Analise SonarQube e build do projeto') {
 			steps {
@@ -72,7 +73,7 @@ pipeline {
                     // Executa as verificacoes no codigo
                     echo "Executing Maven Sonar scanner..."
                     sh """
-                        mvn clean compile sonar:sonar \
+                        ./mvnw sonar:sonar \
                           -Dsonar.host.url=${env.SONARQUBE_HOST_URL} \
                           -Dsonar.login=admin \
                           -Dsonar.password=${env.SONARQUBE_NEW_PASSWORD} \

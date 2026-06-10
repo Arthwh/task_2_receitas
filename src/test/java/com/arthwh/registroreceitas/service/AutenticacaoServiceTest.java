@@ -1,0 +1,127 @@
+package com.arthwh.registroreceitas.service;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
+
+import com.arthwh.registroreceitas.dto.UsuarioLoginDto;
+import com.arthwh.registroreceitas.dto.UsuarioRegisterDto;
+import com.arthwh.registroreceitas.exception.UsuarioNotFoundException;
+import com.arthwh.registroreceitas.model.SituacaoUsuarioEnum;
+import com.arthwh.registroreceitas.model.Usuario;
+import com.arthwh.registroreceitas.repository.UsuarioRepository;
+import java.util.InvalidPropertiesFormatException;
+import java.util.Optional;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+@ExtendWith(MockitoExtension.class)
+class AutenticacaoServiceTest {
+  @Mock private AuthenticationManager authenticationManager;
+
+  @Mock private PasswordEncoder passwordEncoder;
+
+  @Mock private UsuarioRepository usuarioRepository;
+
+  @InjectMocks private AutenticacaoService autenticacaoService;
+
+  @Test
+  @DisplayName("Case 1: Should create an user successfully.")
+  void signupSuccess() throws InvalidPropertiesFormatException {
+    Usuario usuarioSalvoMock = criarUsuarioMock();
+    UsuarioRegisterDto usuarioASerSalvo =
+        new UsuarioRegisterDto(
+            usuarioSalvoMock.getNome(), usuarioSalvoMock.getLogin(), usuarioSalvoMock.getSenha());
+
+    when(usuarioRepository.save(any(Usuario.class))).thenReturn(usuarioSalvoMock);
+    when(passwordEncoder.encode(usuarioSalvoMock.getSenha()))
+        .thenReturn(usuarioSalvoMock.getSenha());
+
+    Usuario usuarioRetornado = autenticacaoService.signup(usuarioASerSalvo);
+
+    assertNotNull(usuarioRetornado);
+    assertEquals(usuarioASerSalvo.nome(), usuarioRetornado.getNome());
+    assertEquals(usuarioASerSalvo.login(), usuarioRetornado.getLogin());
+    assertEquals(usuarioASerSalvo.senha(), usuarioRetornado.getSenha());
+
+    verify(usuarioRepository, times(1)).save(any(Usuario.class));
+    verify(passwordEncoder, times(1)).encode(usuarioASerSalvo.senha());
+  }
+
+  @Test
+  @DisplayName("Case 2: Should not create an user successfully due to an invalid login format.")
+  void signupError() {
+    UsuarioRegisterDto usuarioASerSalvo =
+        new UsuarioRegisterDto("Usuário inválido", "Login em formato inválido", "Senha 123");
+
+    assertThrows(
+        InvalidPropertiesFormatException.class, () -> autenticacaoService.signup(usuarioASerSalvo));
+
+    verify(passwordEncoder, never()).encode(any(String.class));
+    verify(usuarioRepository, never()).save(any(Usuario.class));
+  }
+
+  @Test
+  @DisplayName("Case 3: Should authenticate an user successfully.")
+  void authenticateSuccess() {
+    // Cria os objetos usados no teste
+    Usuario usuarioAutenticado = criarUsuarioMock();
+    UsuarioLoginDto loginDTO =
+        new UsuarioLoginDto(usuarioAutenticado.getLogin(), usuarioAutenticado.getSenha());
+
+    // Define o comportamento do método chamado
+    when(usuarioRepository.findByLogin(loginDTO.login()))
+        .thenReturn(Optional.of(usuarioAutenticado));
+    when(authenticationManager.authenticate(any(UsernamePasswordAuthenticationToken.class)))
+        .thenReturn(new UsernamePasswordAuthenticationToken(loginDTO.login(), loginDTO.senha()));
+
+    Usuario usuarioRetornado = autenticacaoService.authenticate(loginDTO);
+
+    // Verifica se o usuário retornado é o mesmo que o enviado
+    assertNotNull(usuarioRetornado);
+    assertEquals(loginDTO.login(), usuarioRetornado.getLogin());
+    assertEquals(loginDTO.senha(), usuarioRetornado.getSenha());
+
+    verify(usuarioRepository, times(1)).findByLogin(loginDTO.login());
+  }
+
+  @Test
+  @DisplayName("Case 4: Should not authenticate an user successfully.")
+  void authenticateError() {
+    // Cria os objetos usados no teste
+    Usuario usuarioAutenticado = criarUsuarioMock();
+    UsuarioLoginDto loginDTO =
+        new UsuarioLoginDto(usuarioAutenticado.getLogin(), usuarioAutenticado.getSenha());
+
+    // Define o comportamento do método chamado
+    when(usuarioRepository.findByLogin(loginDTO.login()))
+        .thenReturn(
+            Optional
+                .empty()); // Retorna um optional vazio, simulando que o usuário não foi encontrado
+    when(authenticationManager.authenticate(any(UsernamePasswordAuthenticationToken.class)))
+        .thenReturn(new UsernamePasswordAuthenticationToken(loginDTO.login(), loginDTO.senha()));
+
+    // Verifica se foi lançada uma excessão UsuarioNotFoundException
+    assertThrows(UsuarioNotFoundException.class, () -> autenticacaoService.authenticate(loginDTO));
+
+    verify(usuarioRepository, times(1)).findByLogin(loginDTO.login());
+  }
+
+  private Usuario criarUsuarioMock() {
+    Usuario usuarioMock = new Usuario();
+    usuarioMock.setId(1);
+    usuarioMock.setNome("Usuário Teste");
+    usuarioMock.setLogin("usuario@teste.com");
+    usuarioMock.setSenha("senha123");
+    usuarioMock.setSituacao(SituacaoUsuarioEnum.ATIVO);
+
+    return usuarioMock;
+  }
+}

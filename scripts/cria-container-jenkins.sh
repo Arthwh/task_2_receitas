@@ -1,12 +1,12 @@
 #!/bin/bash
 # Cria um container com a imagem do Jenkins, e mapeia o arquivo de soquete do Docker para dentro do container
 sudo docker run -d \
-  --name jenkins \
+  --name servidor-jenkins \
+  --user root \
   -p 9001:8080 -p 50000:50000 \
-  -v jenkins_home:/var/jenkins_home \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -u root \
-  jenkins/jenkins:lts
+  jenkins
 
 # -d executa o comando em segundo plano (detached)
 # --name define um nome para o container
