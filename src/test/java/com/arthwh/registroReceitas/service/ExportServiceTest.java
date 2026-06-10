@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.ByteArrayOutputStream;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -69,7 +70,7 @@ class ExportServiceTest {
         receita.setNome("Bolo de cenoura");
         receita.setDescricao("Bolo de cenoura fofinho.");
         receita.setDataRegistro(new Timestamp(System.currentTimeMillis()));
-        receita.setCusto(30.00);
+        receita.setCusto(BigDecimal.valueOf(30.00));
         receita.setTipoReceita(TipoReceitaEnum.DOCE);
 
         return receita;

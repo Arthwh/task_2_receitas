@@ -11,6 +11,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.io.ByteArrayOutputStream;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -87,7 +88,7 @@ class PdfGeneratorTest {
         //Nome, Descrição, Data e TipoReceita ficam NULL
         Receita receitaIncompleta = new Receita();
         receitaIncompleta.setId(1);
-        receitaIncompleta.setCusto(0.0);
+        receitaIncompleta.setCusto(BigDecimal.valueOf(0.0));
 
         List<Receita> receitas = List.of(receitaIncompleta);
 
@@ -112,7 +113,7 @@ class PdfGeneratorTest {
         receita.setNome("Bolo de cenoura");
         receita.setDescricao("Bolo de cenoura fofinho.");
         receita.setDataRegistro(new Timestamp(System.currentTimeMillis()));
-        receita.setCusto(30.00);
+        receita.setCusto(BigDecimal.valueOf(30.00));
         receita.setTipoReceita(TipoReceitaEnum.DOCE);
 
         return receita;
