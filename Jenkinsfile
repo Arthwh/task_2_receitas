@@ -3,13 +3,13 @@ pipeline {
 	agent {
 		docker {
 			image 'maven:3.9-eclipse-temurin-21'
-			args '-v /root/.m2:/root/.m2' // Faz cache das dependências do Spring
+			args '-v /root/.m2:/root/.m2 --network=host' // Faz cache das dependências do Spring e compartilha a mesma rede da VM com o container
 		}
 	}
 
 	environment {
 //	    SONARQUBE_HOST_URL = 'http://177.44.248.8:9000'
-	    SONARQUBE_HOST_URL = 'http://172.17.0.1:9000' // Endereço interno do docker
+	    SONARQUBE_HOST_URL = 'http://localhost:9000'
 	    SONARQUBE_NEW_PASSWORD = 'SenhaUltraSecreta123@'
     }
 
