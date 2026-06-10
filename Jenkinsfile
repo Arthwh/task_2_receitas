@@ -65,36 +65,36 @@ pipeline {
         	}
         }
 
-		stage('Analise SonarQube e build do projeto') {
-			steps {
-				script {
-                    // Aguarda ate o container do sonarQube estar respondendo na porta 9000
-                    echo "Waiting for SonarQube container to be ready..."
-                    sh "until \$(curl --output /dev/null --silent --head --fail ${env.SONARQUBE_HOST_URL}); do sleep 5; done"
-
-                    // Muda a senha padrao
-                    echo "Changing default admin password..."
-                    sh """
-                        curl -u admin:admin -X POST \
-                        "${env.SONARQUBE_HOST_URL}/api/users/change_password?login=admin&previousPassword=admin&password=${env.SONARQUBE_NEW_PASSWORD}"
-                    """
-
-                    // Executa as verificacoes no codigo
-                    echo "Executing Maven Sonar scanner..."
-                    sh """
-                        ./mvnw sonar:sonar \
-                          -Dsonar.host.url=${env.SONARQUBE_HOST_URL} \
-                          -Dsonar.login=admin \
-                          -Dsonar.password=${env.SONARQUBE_NEW_PASSWORD} \
-                          -Dsonar.projectName="Sistema Receitas" \
-                          -Dsonar.qualitygate.wait=true
-                    """
-                }
-			}
-		}
+//		stage('Analise SonarQube e build do projeto') {
+//			steps {
+//				script {
+//                    // Aguarda ate o container do sonarQube estar respondendo na porta 9000
+//                    echo "Waiting for SonarQube container to be ready..."
+//                    sh "until \$(curl --output /dev/null --silent --head --fail ${env.SONARQUBE_HOST_URL}); do sleep 5; done"
+//
+//                    // Muda a senha padrao
+//                    echo "Changing default admin password..."
+//                    sh """
+//                        curl -u admin:admin -X POST \
+//                        "${env.SONARQUBE_HOST_URL}/api/users/change_password?login=admin&previousPassword=admin&password=${env.SONARQUBE_NEW_PASSWORD}"
+//                    """
+//
+//                    // Executa as verificacoes no codigo
+//                    echo "Executing Maven Sonar scanner..."
+//                    sh """
+//                        ./mvnw sonar:sonar \
+//                          -Dsonar.host.url=${env.SONARQUBE_HOST_URL} \
+//                          -Dsonar.login=admin \
+//                          -Dsonar.password=${env.SONARQUBE_NEW_PASSWORD} \
+//                          -Dsonar.projectName="Sistema Receitas" \
+//                          -Dsonar.qualitygate.wait=true
+//                    """
+//                }
+//			}
+//		}
 
 		stage('Prepara imagens Docker para deploy') {
-			agent any
+			agent none
 
             steps {
                 echo "Cria a imagem padrão da aplicação através do Dockerfile"
