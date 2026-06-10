@@ -42,7 +42,9 @@ public class EmailService implements INotificador {
   }
 
   private static boolean isValidEmail(String email) {
-    if (email == null) { return false; }
+    if (email == null) {
+      return false;
+    }
     Matcher matcher = pattern.matcher(email);
     return matcher.matches();
   }

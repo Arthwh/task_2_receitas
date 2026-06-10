@@ -66,7 +66,9 @@ public class AutenticacaoService {
     String EMAIL_REGEX = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
     Pattern pattern = Pattern.compile(EMAIL_REGEX);
 
-    if (login == null) {return false;}
+    if (login == null) {
+      return false;
+    }
     Matcher matcher = pattern.matcher(login);
     return matcher.matches();
   }
