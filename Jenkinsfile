@@ -93,9 +93,29 @@ pipeline {
 			}
 		}
 
+		stage('Prepara imagens Docker para deploy') {
+            steps {
+                echo "Cria a imagem padrão da aplicação através do Dockerfile"
+                sh 'docker build -t registro-receitas-image'
+            }
+        }
+
 //		stage('Deploy Homologacao'){
 //		    steps{
-//
+//                echo ""
+//                sh """
+//                    docker run -d \
+//                      --name registro-receitas-homologacao
+//                      -e SERVER_ADDRESS= \
+//                      -e SERVER_PORT= \
+//                      -e DB_HOST= \
+//                      -e EMAIL_HOST= \
+//                      -e EMAIL_USERNAME= \
+//                      -e EMAIL_PASSWORD= \
+//                      -e JWT_SECRET_KEY= \
+//                      -p 8081:80 \
+//                      registro-receitas-image
+//                   """
 //		    }
 //		}
 //
