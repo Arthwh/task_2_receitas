@@ -8,7 +8,8 @@ pipeline {
 	}
 
 	environment {
-	    SONARQUBE_HOST_URL = 'http://177.44.248.8:9000'
+//	    SONARQUBE_HOST_URL = 'http://177.44.248.8:9000'
+	    SONARQUBE_HOST_URL = 'http://172.17.0.1:9000' // Endereço interno do docker
 	    SONARQUBE_NEW_PASSWORD = 'SenhaUltraSecreta123@'
     }
 
