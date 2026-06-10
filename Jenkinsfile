@@ -95,6 +95,7 @@ pipeline {
 
 		stage('Prepara imagens Docker para deploy') {
 			agent any
+
             steps {
                 echo "Cria a imagem padrão da aplicação através do Dockerfile"
                 sh 'docker build -t registro-receitas-image'
