@@ -38,13 +38,17 @@ pipeline {
 		}
 
 		stage('Linter') {
-		    echo "Realizando verificação com o linter Checkstyle..."
-		    sh './mvnw checkstyle:check'
+		    steps {
+		        echo "Realizando verificação com o linter Checkstyle..."
+		        sh './mvnw checkstyle:check'
+		    }
 		}
 
 		stage('Code Formater') {
-		    echo "Realizando verificação de formatação com o Spotless..."
-		    sh './mvnw spotless:check'
+		    steps {
+		        echo "Realizando verificação de formatação com o Spotless..."
+		        sh './mvnw spotless:check'
+		    }
 		}
 
 		stage('Compilação e Testes') {
