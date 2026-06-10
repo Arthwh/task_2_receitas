@@ -44,8 +44,7 @@ pipeline {
 		    }
 		}
 
-
-		}stage('Linter') {
+		stage('Linter') {
 		    steps {
 		        echo "Realizando verificação com o linter Checkstyle..."
 		        sh './mvnw checkstyle:check'
