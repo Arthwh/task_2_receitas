@@ -61,7 +61,7 @@ pipeline {
 		stage('Compilação e Testes') {
         	steps {
         		// Apaga os builds antigos e roda os testes
-                sh './mvnw clean test'
+                sh './mvnw clean package'
         	}
         }
 
