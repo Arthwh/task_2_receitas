@@ -37,7 +37,15 @@ pipeline {
 			}
 		}
 
-		stage('Linter') {
+		stage('Concede permissões para o Maven') {
+		    steps {
+		        // Garante que o arquivo mvnw tem permissão para ser executado no Linux
+                sh 'chmod +x mvnw'
+		    }
+		}
+
+
+		}stage('Linter') {
 		    steps {
 		        echo "Realizando verificação com o linter Checkstyle..."
 		        sh './mvnw checkstyle:check'
@@ -53,8 +61,6 @@ pipeline {
 
 		stage('Compilação e Testes') {
         	steps {
-        		// Garante que o arquivo mvnw tem permissão para ser executado no Linux
-        		sh 'chmod +x mvnw'
         		// Apaga os builds antigos e roda os testes
                 sh './mvnw clean test'
         	}
