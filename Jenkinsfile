@@ -1,11 +1,6 @@
 pipeline {
-	// Usa um contêiner temporário com Maven e Java 17 para rodar os comandos abaixo
-	agent {
-		docker {
-			image 'maven:3.9-eclipse-temurin-21'
-			args '-v /root/.m2:/root/.m2 --network=host' // Faz cache das dependências do Spring e compartilha a mesma rede da VM com o container
-		}
-	}
+    // Desliga o agente global
+    agent none
 
 	environment {
 	    SONARQUBE_HOST_URL = 'http://localhost:9000'
@@ -29,111 +24,121 @@ pipeline {
            booleanParam(name: 'RUN_TESTS', defaultValue: true, description: 'Desmarque para pular os testes')
     }
 
-
 	stages {
-		stage('Checkout') {
-			steps {
-				checkout scm
-			}
-		}
+	    stage('Fase de testes e build') {
+	        // Usa um contêiner temporário com Maven e Java 17 para rodar os comandos abaixo
+            agent {
+            	docker {
+            		image 'maven:3.9-eclipse-temurin-21'
+            		args '-v /root/.m2:/root/.m2 --network=host' // Faz cache das dependências do Spring e compartilha a mesma rede da VM com o container
+            	}
+            }
 
-		stage('Concede permissões para o Maven') {
-		    steps {
-		        // Garante que o arquivo mvnw tem permissão para ser executado no Linux
-                sh 'chmod +x mvnw'
-		    }
-		}
+            stages {
+                stage('Checkout') {
+                	steps {
+                		checkout scm
+                	}
+                }
 
-		stage('Linter') {
-		    steps {
-		        echo "Realizando verificação com o linter Checkstyle..."
-		        sh './mvnw checkstyle:check'
-		    }
-		}
+                stage('Concede permissões para o Maven') {
+                    steps {
+                        // Garante que o arquivo mvnw tem permissão para ser executado no Linux
+                        sh 'chmod +x mvnw'
+                    }
+                }
 
-		stage('Code Formater') {
-		    steps {
-		        echo "Realizando verificação de formatação com o Spotless..."
-		        sh './mvnw spotless:check'
-		    }
-		}
+                stage('Linter') {
+                    steps {
+                        echo "Realizando verificação com o linter Checkstyle..."
+                        sh './mvnw checkstyle:check'
+                    }
+                }
 
-		stage('Compilação e Testes') {
-        	steps {
-        		// Apaga os builds antigos e roda os testes
-                sh './mvnw clean package'
-        	}
-        }
+                stage('Code Formater') {
+                    steps {
+                        echo "Realizando verificação de formatação com o Spotless..."
+                        sh './mvnw spotless:check'
+                    }
+                }
 
-//		stage('Analise SonarQube e build do projeto') {
-//			steps {
-//				script {
-//                    // Aguarda ate o container do sonarQube estar respondendo na porta 9000
-//                    echo "Waiting for SonarQube container to be ready..."
-//                    sh "until \$(curl --output /dev/null --silent --head --fail ${env.SONARQUBE_HOST_URL}); do sleep 5; done"
-//
-//                    // Muda a senha padrao
-//                    echo "Changing default admin password..."
-//                    sh """
-//                        curl -u admin:admin -X POST \
-//                        "${env.SONARQUBE_HOST_URL}/api/users/change_password?login=admin&previousPassword=admin&password=${env.SONARQUBE_NEW_PASSWORD}"
-//                    """
-//
-//                    // Executa as verificacoes no codigo
-//                    echo "Executing Maven Sonar scanner..."
-//                    sh """
-//                        ./mvnw sonar:sonar \
-//                          -Dsonar.host.url=${env.SONARQUBE_HOST_URL} \
-//                          -Dsonar.login=admin \
-//                          -Dsonar.password=${env.SONARQUBE_NEW_PASSWORD} \
-//                          -Dsonar.projectName="Sistema Receitas" \
-//                          -Dsonar.qualitygate.wait=true
-//                    """
-//                }
-//			}
-//		}
+                stage('Compilação e Testes') {
+                     steps {
+                     	// Apaga os builds antigos e roda os testes
+                        sh './mvnw clean package'
+                     }
+                }
 
-        agent {
-            any
-        }
+                stage('Analise SonarQube e build do projeto') {
+                	steps {
+                        // Aguarda ate o container do sonarQube estar respondendo na porta 9000
+                        echo "Waiting for SonarQube container to be ready..."
+                        sh "until \$(curl --output /dev/null --silent --head --fail ${env.SONARQUBE_HOST_URL}); do sleep 5; done"
 
-		stage('Prepara imagens Docker para deploy') {
-            steps {
-                echo "Cria a imagem padrão da aplicação através do Dockerfile"
-                sh 'docker build -t registro-receitas-image .'
+                        // Muda a senha padrao
+                        echo "Changing default admin password..."
+                        sh """
+                            curl -u admin:admin -X POST \
+                            "${env.SONARQUBE_HOST_URL}/api/users/change_password?login=admin&previousPassword=admin&password=${env.SONARQUBE_NEW_PASSWORD}"
+                        """
+
+                        // Executa as verificacoes no codigo
+                        echo "Executing Maven Sonar scanner..."
+                        sh """
+                            ./mvnw sonar:sonar \
+                              -Dsonar.host.url=${env.SONARQUBE_HOST_URL} \
+                              -Dsonar.login=admin \
+                              -Dsonar.password=${env.SONARQUBE_NEW_PASSWORD} \
+                              -Dsonar.projectName="Sistema Receitas" \
+                              -Dsonar.qualitygate.wait=true
+                        """
+                	}
+                }
             }
         }
 
-//		stage('Deploy Homologacao'){
-//		    steps{
-//                echo ""
-//                sh """
-//                    docker run -d \
-//                      --name registro-receitas-homologacao
-//                      -e SERVER_ADDRESS= \
-//                      -e SERVER_PORT= \
-//                      -e DB_HOST= \
-//                      -e EMAIL_HOST= \
-//                      -e EMAIL_USERNAME= \
-//                      -e EMAIL_PASSWORD= \
-//                      -e JWT_SECRET_KEY= \
-//                      -p 8081:80 \
-//                      registro-receitas-image
-//                   """
-//		    }
-//		}
+        stage('Fase de deploy para homologacao e producao') {
+            agent any
+
+            stages {
+                stage('Prepara imagens Docker para deploy') {
+                    steps {
+                        echo "Cria a imagem padrão da aplicação através do Dockerfile"
+                        sh 'docker build -t registro-receitas-image .'
+                    }
+                }
+
+//                stage('Deploy Homologacao'){
+//                    steps{
+//                        echo ""
+//                        sh """
+//                            docker run -d \
+//                              --name registro-receitas-homologacao
+//                              -e SERVER_ADDRESS= \
+//                              -e SERVER_PORT= \
+//                              -e DB_HOST= \
+//                              -e EMAIL_HOST= \
+//                              -e EMAIL_USERNAME= \
+//                              -e EMAIL_PASSWORD= \
+//                              -e JWT_SECRET_KEY= \
+//                              -p 8081:80 \
+//                              registro-receitas-image
+//                           """
+//                    }
+//                }
 //
-//        // Estágio de aprovação para Produção
-//        stage('Aprovacao para Producao') {
-//            steps {
-//                input message: 'Aprovar deploy para Produção?', ok: 'Y'
-//            }
-//        }
+//                // Estágio de aprovação para Produção
+//                stage('Aprovacao para Producao') {
+//                    steps {
+//                        input message: 'Aprovar deploy para Produção?', ok: 'Y'
+//                    }
+//                }
 //
-//		stage('Deploy Producao'){
-//		    steps{
-//
-//		    }
-//		}
+//                stage('Deploy Producao'){
+//                    steps{
+//                    }
+//                }
+            }
+        }
 	}
 }
