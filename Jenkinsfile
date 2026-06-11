@@ -108,36 +108,27 @@ pipeline {
                     }
                 }
 
-//                stage('Deploy Homologacao'){
-//                    steps{
-//                        echo ""
-//                        sh """
-//                            docker run -d \
-//                              --name registro-receitas-homologacao
-//                              -e SERVER_ADDRESS= \
-//                              -e SERVER_PORT= \
-//                              -e DB_HOST= \
-//                              -e EMAIL_HOST= \
-//                              -e EMAIL_USERNAME= \
-//                              -e EMAIL_PASSWORD= \
-//                              -e JWT_SECRET_KEY= \
-//                              -p 8081:80 \
-//                              registro-receitas-image
-//                           """
-//                    }
-//                }
-//
-//                // Estágio de aprovação para Produção
-//                stage('Aprovacao para Producao') {
-//                    steps {
-//                        input message: 'Aprovar deploy para Produção?', ok: 'Y'
-//                    }
-//                }
-//
-//                stage('Deploy Producao'){
-//                    steps{
-//                    }
-//                }
+                stage('Deploy Homologacao'){
+                    steps{
+                        echo "Faz deploy para o ambiente de Homologação..."
+                        // O parâmetro -f define qual arquivo compose deve ser usado
+                        sh 'docker compose -f docker-compose.homolog.yml --env-file /home/univates/secrets/homolog.env up -d'
+                    }
+                }
+
+                stage('Aprovacao para Producao') {
+                    steps {
+                        input message: 'Aprovar deploy para Produção?', ok: 'Y'
+                    }
+                }
+
+                stage('Deploy Producao'){
+                    steps{
+                        echo "Faz deploy para o ambiente de Produção..."
+                        // O parâmetro -f define qual arquivo compose deve ser usado
+                        sh 'docker compose -f docker-compose.prod.yml --env-file /home/univates/secrets/prod.env up -d'
+                    }
+                }
             }
         }
 	}
