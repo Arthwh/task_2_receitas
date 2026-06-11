@@ -35,5 +35,6 @@ build/
 ### Logs
 /logs
 
-/scripts/jenkins.yaml
 /scripts/commands_list.txt
+
+/secrets/

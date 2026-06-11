@@ -25,4 +25,5 @@ RUN jenkins-plugin-cli --plugins \
     git \
     docker-workflow \
     timestamper \
-    github
+    github \
+    startup-trigger
