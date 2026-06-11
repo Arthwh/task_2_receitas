@@ -1,0 +1,51 @@
+services:
+  # ----------------------------------------------------------------
+  # INFRAESTRUTURA (Banco de Dados)
+  # ----------------------------------------------------------------
+  postgresql-db:
+    image: postgres:16-alpine
+    container_name: postgres-db-prod
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: registro_receitas_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-prod-data:/var/lib/postgresql/data
+    networks:
+      - rede-prod
+    restart: always
+
+  # ----------------------------------------------------------------
+  # APLICAÇÃO
+  # ----------------------------------------------------------------
+  application-server:
+    image: registro-receitas-image
+    container_name: application-server-prod
+    environment:
+      SERVER_ADDRESS: 0.0.0.0 # Ouvindo internamente o container
+      SERVER_PORT: 80
+      DB_HOST: postgresql-db
+      DB_USER: postgres
+      DB_PASS: postgres
+      EMAIL_HOST: smtp.gmail.com
+      EMAIL_USERNAME: ${EMAIL_USERNAME}
+      EMAIL_PASSWORD: ${EMAIL_PASSWORD}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+    ports:
+      - "8080:80"
+    depends_on:
+      - postgresql-db
+    networks:
+      - rede-prod
+
+# ----------------------------------------------------------------
+# REDES E VOLUMES
+# ----------------------------------------------------------------
+networks:
+  rede-prod:
+    driver: bridge
+
+volumes:
+  postgres-prod-data: # Para os dados do banco não sumirem se desligar a VM
