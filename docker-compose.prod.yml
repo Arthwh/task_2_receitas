@@ -39,6 +39,7 @@ services:
       - postgresql-db
     networks:
       - rede-prod
+    restart: always
 
 # ----------------------------------------------------------------
 # REDES E VOLUMES
