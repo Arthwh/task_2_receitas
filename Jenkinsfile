@@ -8,7 +8,6 @@ pipeline {
     }
 
 	options {
-            timeout(time: 1, unit: 'HOURS') //Define quanto tempo a pipeline e executada antes de poder ser cancelada
             disableConcurrentBuilds() //Impede que duas execuções rodem ao mesmo tempo na mesma branch
             buildDiscarder(logRotator(numToKeepStr: '10')) //Define o limite de logs salvos
             timestamps()
@@ -114,20 +113,31 @@ pipeline {
                         sh 'docker compose -p registro-receitas-homolog -f docker-compose.homolog.yml --env-file /home/univates/secrets/homolog.env up -d'
                     }
                 }
+            }
+        }
 
-                stage('Aprovacao para Producao') {
-                    steps {
-                        input message: 'Aprovar deploy para Produção?', ok: 'Yes'
-                    }
-                }
+        stage('Fase de espera para aprovação de deploy para producao') {
+            agent none
 
-                stage('Deploy Producao'){
-                    steps{
-                        echo "Faz deploy para o ambiente de Produção..."
-                        // O parâmetro -f define qual arquivo compose deve ser usado
-                        sh 'docker compose -p registro-receitas-prod -f docker-compose.prod.yml --env-file /home/univates/secrets/prod.env up -d'
-                    }
+            steps {
+                timeout(time: 24, unit: 'HOURS') {
+                    input message: 'Aprovar deploy para Produção?', ok: 'Sim'
                 }
+            }
+        }
+
+        stage('Fase de deploy para Producao') {
+            agent {
+                docker {
+                    image 'docker:cli'
+                    args '-v /var/run/docker.sock:/var/run/docker.sock -v /home/univates/secrets:/home/univates/secrets'
+                }
+            }
+
+            steps {
+                echo "Faz deploy para o ambiente de Produção..."
+                // O parâmetro -f define qual arquivo compose deve ser usado
+                sh 'docker compose -p registro-receitas-prod -f docker-compose.prod.yml --env-file /home/univates/secrets/prod.env up -d'
             }
         }
 	}
