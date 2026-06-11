@@ -18,12 +18,6 @@ pipeline {
            githubPush() // Roda o pipeline toda vez que o repositorio tem um commit novo
     }
 
-    parameters {
-           string(name: 'DEPLOY_ENV', defaultValue: 'staging', description: 'Ambiente de destino')
-           choice(name: 'LOG_LEVEL', choices: ['INFO', 'DEBUG', 'ERROR'], description: 'Nível de log')
-           booleanParam(name: 'RUN_TESTS', defaultValue: true, description: 'Desmarque para pular os testes')
-    }
-
 	stages {
 	    stage('Fase de testes e build') {
 	        // Usa um contêiner temporário com Maven e Java 17 para rodar os comandos abaixo
@@ -101,7 +95,7 @@ pipeline {
             agent {
                 docker {
                     image 'docker:cli'
-                    args '-v /var/run/docker.sock:/var/run/docker.sock'
+                    args '-v /var/run/docker.sock:/var/run/docker.sock -v /home/univates/secrets:/home/univates/secrets'
                 }
             }
 
