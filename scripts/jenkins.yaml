@@ -7,15 +7,6 @@ jobs:
   - script: >
       pipelineJob('Configura-Repositorio-Jenkins') {
           description('Pipeline criada sozinha ao subir o container Docker.')
-          // O gatilho abaixo joga o job na fila assim que o Jenkins inicia/recarrega o YAML
-          triggers {
-              hudsonStartupTrigger {
-                  label('') // Deixe em branco para rodar no controller principal
-                  quietPeriod('0')
-                  nodeParameterName('')
-                  runOnChoice('FALSE')
-              }
-          }
       
           definition {
               cpsScm {
