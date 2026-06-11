@@ -94,7 +94,7 @@ pipeline {
 //		}
 
 		stage('Prepara imagens Docker para deploy') {
-			agent none
+			agent any
 
             steps {
                 echo "Cria a imagem padrão da aplicação através do Dockerfile"
