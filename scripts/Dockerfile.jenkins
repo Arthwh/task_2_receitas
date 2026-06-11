@@ -2,7 +2,7 @@ FROM jenkins/jenkins:lts
 
 # Entra como root para instalar o cliente Docker no sistema do container
 USER root
-RUN apt-get update && apt-get install -y docker.io
+RUN apt-get update && apt-get install -y docker.io docker-compose-v2
 
 # Volta para o usuário padrão do Jenkins
 USER jenkins
