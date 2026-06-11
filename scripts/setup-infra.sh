@@ -18,6 +18,9 @@ sudo usermod -aG docker $USER
 sudo chmod +x ./cria-container-sonarqube.sh
 sudo ./cria-container-sonarqube.sh
 
+# Concede permissão de leitura dos arquivos .env
+sudo chmod 644 ./secrets/*.env
+
 # Cria container do Jenkins
 # Concede permissão de execução pro arquivo de configuração do jenkins
 sudo chmod +x ./jenkins.yaml

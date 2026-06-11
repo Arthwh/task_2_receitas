@@ -45,9 +45,6 @@ pipeline {
                     steps {
                         // Garante que o arquivo mvnw tem permissão para ser executado no Linux
                         sh 'chmod +x mvnw'
-
-                        // Dá permissão de leitura para outros usuários do sistema lerem os arquivos .env
-                        sh 'chmod 644 /home/univates/secrets/*.env'
                     }
                 }
 
