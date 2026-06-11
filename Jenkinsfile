@@ -93,12 +93,14 @@ pipeline {
 //			}
 //		}
 
-		stage('Prepara imagens Docker para deploy') {
-			agent any
+        agent {
+            any
+        }
 
+		stage('Prepara imagens Docker para deploy') {
             steps {
                 echo "Cria a imagem padrão da aplicação através do Dockerfile"
-                sh '/usr/bin/docker build -t registro-receitas-image .'
+                sh 'docker build -t registro-receitas-image .'
             }
         }
 
