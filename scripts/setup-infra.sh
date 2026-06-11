@@ -14,9 +14,9 @@ sudo ./instala-docker.sh
 # Adiciona o usuário atual no grupo de usuários do docker (tem permissão para manipular, sem ser "sudo")
 sudo usermod -aG docker $USER
 
-# Cria container do SonarQube
-sudo chmod +x ./cria-container-sonarqube.sh
-sudo ./cria-container-sonarqube.sh
+# Cria container do SonarQube (COMENTADO POIS A VM NAO TEM DESEMPENHO PARA RODAR TUDO)
+#sudo chmod +x ./cria-container-sonarqube.sh
+#sudo ./cria-container-sonarqube.sh
 
 # Concede permissão de leitura dos arquivos .env
 sudo chmod 644 ./secrets/*.env
