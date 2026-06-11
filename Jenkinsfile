@@ -98,7 +98,12 @@ pipeline {
         }
 
         stage('Fase de deploy para homologacao e producao') {
-            agent any
+            agent {
+                docker {
+                    image 'docker:cli'
+                    args '-v /var/run/docker.sock:/var/run/docker.sock'
+                }
+            }
 
             stages {
                 stage('Prepara imagens Docker para deploy') {
