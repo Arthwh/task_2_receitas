@@ -4,7 +4,7 @@ CREATE TYPE tipo_receita_paladar AS ENUM ('DOCE', 'SALGADO');
 CREATE TABLE usuario(
     id SERIAL NOT NULL,
     nome VARCHAR(100) NOT NULL,
-    login VARCHAR(100) NOT NULL,
+    login VARCHAR(100) UNIQUE NOT NULL,
     senha VARCHAR(255) NOT NULL,
     situacao status_usuario NOT NULL,
     CONSTRAINT pk_usuario PRIMARY KEY(id)
