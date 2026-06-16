@@ -5,7 +5,7 @@ credentials:
 
 jobs:
   - script: >
-      pipelineJob('Configura-Repositorio-Jenkins') {
+      pipelineJob('Registro-Receitas-Deploy-Pipeline') {
           description('Pipeline criada sozinha ao subir o container Docker.')
       
           definition {
