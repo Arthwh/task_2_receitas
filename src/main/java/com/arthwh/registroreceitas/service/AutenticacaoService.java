@@ -76,8 +76,4 @@ public class AutenticacaoService {
   public String hashPassword(String senha) {
     return passwordEncoder.encode(senha);
   }
-
-  public void naoFazNada(){
-
-  }
 }
