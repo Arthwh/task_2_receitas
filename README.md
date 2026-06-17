@@ -4,16 +4,19 @@ Este projeto foi desenvolvido como um trabalho acadêmico com o objetivo prátic
 
 A aplicação consiste em um sistema simples de cadastro de usuários e receitas. As receitas possuem categorias, filtros por nome e categoria, autenticação via token JWT e funcionalidade para exportar os dados em formato PDF.
 
+## Arquitetura
+![Arquitetura CI/CD](docs/diagrama_sistema_receitas_infra.drawio.png)
+
 ## Tecnologias Utilizadas
 
-* **Backend:** Java 21 e Spring Boot (parent 3.4.5)
-* **Banco de Dados:** PostgreSQL (ambientes de homologação e produção) e H2 (ambiente de testes)
+* **Backend:** Java v21 e Spring Boot v4.0.5
+* **Banco de Dados:** PostgreSQL v16 (ambientes de homologação e produção) e H2 (ambiente de testes)
 * **Validação de Código:** SonarQube, Checkstyle e Spotless
 * **CI/CD:** Jenkins
 * **Orquestração e Deploy:** Docker e Docker Compose
-
-## Arquitetura
-![Arquitetura](src/main/resources/static/img_arquitetura/diagrama_sistema_receitas_infra.drawio.png)
+* **Versionamento:** Git e Github
+* **Automação:** Scripts Shell (.sh)
+* **Sistema Operacional:** Ubuntu 24.04 LTS
 
 ## Funcionamento da Esteira (CI/CD)
 
