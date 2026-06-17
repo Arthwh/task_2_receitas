@@ -12,6 +12,9 @@ A aplicação consiste em um sistema simples de cadastro de usuários e receitas
 * **CI/CD:** Jenkins
 * **Orquestração e Deploy:** Docker e Docker Compose
 
+## Arquitetura
+![Arquitetura](src/main/resources/static/img_arquitetura/diagrama_sistema_receitas_infra.drawio.png)
+
 ## Funcionamento da Esteira (CI/CD)
 
 O fluxo de automação está configurado no arquivo `Jenkinsfile` e utiliza agentes Docker temporários para isolar cada etapa do processo:
