@@ -53,16 +53,10 @@ chmod +x setup-infra.sh
 
 * **O que faz:** Este script inicializa e provisiona os contêineres base da infraestrutura (como Jenkins e SonarQube). Ele prepara o ambiente para que a esteira possa ser executada.
 
-### 2. Disparo da Pipeline de Deploy
+#### 2. Disparo da Pipeline de Deploy
 Com a infraestrutura base rodando, o deploy da aplicação é acionado automaticamente pelo próprio script inicial.
 
 * **O que faz:** O script se comunica via API com o Jenkins, eliminando a necessidade de interação manual com a interface gráfica. Ele identifica a credencial de acesso, negocia o token de segurança (Crumb) e envia o comando para iniciar a pipeline definida no `Jenkinsfile`.
-
-## Endpoints Principais
-* **POST /auth/login:** Autenticação do usuário e geração do token JWT.
-* **GET /receitas:** Listagem e filtragem de receitas por nome ou categoria.
-* **POST /receitas:** Cadastro de novas receitas (requer token JWT).
-* **GET /receitas/exportar/{id}:** Geração do arquivo PDF com os dados da receita.
 
 ## Detalhes de Configuração
 * **Isolamento de Ambientes:** Os ambientes de homologação e produção rodam na mesma máquina virtual. O isolamento é feito através da flag `-p` do Docker Compose, mapeando portas diferentes e definindo nomes de projetos distintos para evitar colisões.
