@@ -58,12 +58,6 @@ Com a infraestrutura base rodando, o deploy da aplicação é acionado automatic
 
 * **O que faz:** O script se comunica via API com o Jenkins, eliminando a necessidade de interação manual com a interface gráfica. Ele identifica a credencial de acesso, negocia o token de segurança (Crumb) e envia o comando para iniciar a pipeline definida no `Jenkinsfile`.
 
-## Endpoints Principais
-* **POST /auth/login:** Autenticação do usuário e geração do token JWT.
-* **GET /receitas:** Listagem e filtragem de receitas por nome ou categoria.
-* **POST /receitas:** Cadastro de novas receitas (requer token JWT).
-* **GET /receitas/exportar/{id}:** Geração do arquivo PDF com os dados da receita.
-
 ## Detalhes de Configuração
 * **Isolamento de Ambientes:** Os ambientes de homologação e produção rodam na mesma máquina virtual. O isolamento é feito através da flag `-p` do Docker Compose, mapeando portas diferentes e definindo nomes de projetos distintos para evitar colisões.
 * **Gerenciamento de Credenciais:** As senhas e configurações sensíveis de cada ambiente ficam restritas aos arquivos `.env` na pasta de `secrets` da VM, garantindo que informações críticas não sejam expostas no repositório de código. Para o funcionamento correto da aplicação, estes arquivos devem conter obrigatoriamente as seguintes chaves configuradas:
