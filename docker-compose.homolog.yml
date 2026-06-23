@@ -16,6 +16,11 @@ services:
     networks:
       - rede-homolog
     restart: always
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d registro_receitas_db" ]
+      interval: 3s
+      timeout: 3s
+      retries: 5
 
   # ----------------------------------------------------------------
   # APLICAÇÃO
@@ -36,7 +41,8 @@ services:
     ports:
       - "8081:80"
     depends_on:
-      - postgresql-db
+      postgresql-db:
+        condition: service_healthy
     networks:
       - rede-homolog
     restart: always
