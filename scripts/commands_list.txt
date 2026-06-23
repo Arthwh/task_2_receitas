@@ -8,3 +8,14 @@ scp <arquivo> univates@177.44.248.8:/home/univates
 sudo ./setup-infra.sh
 
 
+sudo docker exec -it postgres-db-homolog /bin/bash
+psql -U postgres -d registro_receitas_db
+\dt
+
+sudo docker exec -it postgres-db-prod /bin/bash
+psql -U postgres -d registro_receitas_db
+\dt
+
+
+
+

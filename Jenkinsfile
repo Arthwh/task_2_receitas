@@ -111,7 +111,7 @@ pipeline {
                     steps{
                         echo "Faz deploy para o ambiente de Homologação..."
                         // O parâmetro -f define qual arquivo compose deve ser usado
-                        sh 'docker compose -p registro-receitas-homolog -f docker-compose.homolog.yml --env-file /home/univates/secrets/homolog.env up -d'
+                        sh 'docker compose -p registro-receitas-homolog -f docker-compose.homolog.yml --env-file /home/univates/secrets/homolog.env up -d --build application-server'
                     }
                 }
             }
@@ -138,7 +138,7 @@ pipeline {
             steps {
                 echo "Faz deploy para o ambiente de Produção..."
                 // O parâmetro -f define qual arquivo compose deve ser usado
-                sh 'docker compose -p registro-receitas-prod -f docker-compose.prod.yml --env-file /home/univates/secrets/prod.env up -d'
+                sh 'docker compose -p registro-receitas-prod -f docker-compose.prod.yml --env-file /home/univates/secrets/prod.env up -d --build application-server'
             }
         }
 	}
