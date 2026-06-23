@@ -34,7 +34,7 @@ sudo chmod +x ./cria-container-jenkins.sh
 sudo ./cria-container-jenkins.sh
 
 # Espera 30s até o container do Jenkins estar pronto
-sudo sleep 30
+sudo sleep 50
 
 # Mostra os logs do container do jenkins
 sudo docker logs --tail 50 servidor-jenkins
