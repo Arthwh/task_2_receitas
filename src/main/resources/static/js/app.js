@@ -146,6 +146,8 @@ createApp({
                 isLoggedIn.value = true;
                 loadRecipes();
                 loadUserData();
+            } else {
+                isLoggedIn.value = false;
             }
         });
 

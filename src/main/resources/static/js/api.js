@@ -11,13 +11,14 @@ api.interceptors.request.use(config => {
     return config;
 });
 
-// Interceptor para erros (ex: token expirado)
+// Interceptor para erros
 api.interceptors.response.use(
     response => response,
     error => {
         if (error.response && (error.response.status === 401 || error.response.status === 403)) {
+            console.warn("Sessão inválida ou expirada. Forçando logout...");
             localStorage.clear();
-            window.location.reload();
+            location.reload();
         }
         return Promise.reject(error);
     }
