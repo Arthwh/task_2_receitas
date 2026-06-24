@@ -61,6 +61,8 @@ Com a infraestrutura base rodando, o deploy da aplicação é acionado automatic
 ## Detalhes de Configuração
 * **Isolamento de Ambientes:** Os ambientes de homologação e produção rodam na mesma máquina virtual. O isolamento é feito através da flag `-p` do Docker Compose, mapeando portas diferentes e definindo nomes de projetos distintos para evitar colisões.
 * **Gerenciamento de Credenciais:** As senhas e configurações sensíveis de cada ambiente ficam restritas aos arquivos `.env` na pasta de `secrets` da VM, garantindo que informações críticas não sejam expostas no repositório de código. Para o funcionamento correto da aplicação, estes arquivos devem conter obrigatoriamente as seguintes chaves configuradas:
+    * `POSTGRES_USER`
+    * `POSTGRES_PASSWORD`
     * `EMAIL_USERNAME`
     * `EMAIL_PASSWORD`
     * `JWT_SECRET_KEY`
