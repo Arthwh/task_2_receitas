@@ -54,4 +54,8 @@ public class UsuarioService {
 
     return usuario;
   }
+
+  public void naoFazNada(){
+
+  }
 }

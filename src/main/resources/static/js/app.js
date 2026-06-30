@@ -19,6 +19,9 @@ createApp({
         // Funções de Autenticação
         const login = async () => {
             try {
+                localStorage.clear();
+                document.cookie = "JSESSIONID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
                 const res = await api.post('/auth/login', authForm);
                 localStorage.setItem('jwt_token', res.data.token);
                 localStorage.setItem('user_login', authForm.login);
@@ -42,7 +45,7 @@ createApp({
                 console.log(params);
 
                 // Faz a chamada: /receitas?tipo=DOCE&data=2024-05-20
-                const res = await api.get('/receitas', { params });
+                const res = await api.get('/receitas', {params});
                 console.log(res.data);
                 receitas.value = res.data;
             } catch (e) {
@@ -89,7 +92,7 @@ createApp({
         };
 
         const updateUser = async () => {
-            console.log("DadosUsuario: "+userForm)
+            console.log("DadosUsuario: " + userForm)
             await api.put('/usuarios', {...userForm});
             alert("Usuário atualizado com sucesso!");
             hideModal('editUserModal');
@@ -152,8 +155,26 @@ createApp({
         });
 
         return {
-            isLoggedIn, userLogin, receitas, authForm, recipeForm, userForm, filtroTipo, filtroData, createUserForm,
-            login, logout, showModal, saveRecipe, createUser, updateUser, exportPdf, clearFilters, loadRecipes, loadUserData, formatDate
+            isLoggedIn,
+            userLogin,
+            receitas,
+            authForm,
+            recipeForm,
+            userForm,
+            filtroTipo,
+            filtroData,
+            createUserForm,
+            login,
+            logout,
+            showModal,
+            saveRecipe,
+            createUser,
+            updateUser,
+            exportPdf,
+            clearFilters,
+            loadRecipes,
+            loadUserData,
+            formatDate
         };
     }
 }).mount('#app');

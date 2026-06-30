@@ -9,7 +9,6 @@ pipeline {
 
 	options {
             disableConcurrentBuilds() //Impede que duas execuções rodem ao mesmo tempo na mesma branch
-            buildDiscarder(logRotator(numToKeepStr: '10')) //Define o limite de logs salvos
             timestamps()
     }
 
